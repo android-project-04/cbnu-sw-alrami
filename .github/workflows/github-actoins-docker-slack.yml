@@ -44,12 +44,12 @@ jobs:
       run: chmod +x gradlew
       working-directory: ${{ env.working-directory }}
 
-    - name: Build with Gradle
-      run: ./gradlew build
+    - name: Test with Gradle
+      run: ./gradlew test --no-daemon
       working-directory: ${{ env.working-directory }}
 
-    - name: Test with Gradle
-      run: ./gradlew test
+    - name: Build with Gradle
+      run: ./gradlew build -x test --parallel --no-daemon
       working-directory: ${{ env.working-directory }}
 
     - name: Cleanup Gradle Cache
