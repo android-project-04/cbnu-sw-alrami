@@ -69,7 +69,7 @@ public class AssuredTest {
 
         assertAll(
                 () -> Assertions.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
-                () -> Assertions.assertThat(response.body().asPrettyString()).isEqualTo("hello3")
+                () -> Assertions.assertThat(response.body().asPrettyString()).isEqualTo("hello4")
 
         );
 
