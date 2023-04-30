@@ -1,7 +1,14 @@
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0"
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.11'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 
 	//rest docs
 	id "org.asciidoctor.jvm.convert" version "3.3.2"
@@ -27,31 +34,54 @@ ext {
 	snippetsDir = file('build/generated-snippets')
 }
 
+
 dependencies {
+	// SpringBoot
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
+
+	// JPA, QueryDSL
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation("com.querydsl:querydsl-jpa:${queryDslVersion}")
+	implementation("com.querydsl:querydsl-apt:${queryDslVersion}")
+	implementation("com.querydsl:querydsl-core:${queryDslVersion}")
+
+	// Spring Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// MySQL
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	runtimeOnly 'com.h2database:h2'
+
+	// Redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation(group: 'it.ozimov', name: 'embedded-redis', version: '0.7.1')
+
+	// Lombok
+	annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
 	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'
+
+	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	asciidoctorExt "org.springframework.restdocs:spring-restdocs-asciidoctor:${asciidocVersion}"
-	testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc:${asciidocVersion}"
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc:${asciidocVersion}"
+	testImplementation 'org.springframework.restdocs:spring-restdocs-restassured'
+	testImplementation 'io.rest-assured:rest-assured'
+	testImplementation "org.testcontainers:junit-jupiter:1.17.6"
+	testImplementation "org.testcontainers:mysql:1.17.6"
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+
+	// Google
+	implementation 'com.google.guava:guava:31.1-jre'
 }
 
 tasks.named('test') {
 	outputs.dir snippetsDir
 	useJUnitPlatform()
 }
-
-//tasks.named('asciidoctor') {
-//	inputs.dir snippetsDir
-//	dependsOn test
-//}
 
 //-------------------rest docs----------------------------------------------
 test {
@@ -62,4 +92,39 @@ asciidoctor {
 	inputs.dir snippetsDir
 	configurations 'asciidoctorExt'
 	dependsOn test
+}
+
+
+
+bootJar {
+	dependsOn asciidoctor
+	delete file('src/main/resources/static/docs/*')
+	copy {
+		from asciidoctor.outputDir
+		into "src/main/resources/static/docs"
+	}
+}
+
+// QueryDSL
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	querydsl.extendsFrom compileClasspath
+	asciidoctorExtensions
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
 }
