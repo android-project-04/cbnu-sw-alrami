@@ -3,7 +3,10 @@ package cbnu.io.cbnuswalrami.test;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 import static io.restassured.RestAssured.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -53,12 +57,21 @@ public class AssuredTest {
     @Test
     public void given_when_then() {
         // given - precondition or setup
-        given().spec(documentationSpec)
+        ExtractableResponse<Response> response = given().spec(documentationSpec)
                 .contentType(ContentType.JSON)
                 .accept("application/json")
                 .filter(document("hello")
                 )
-                        .when().get("/")
-                .then().statusCode(HttpStatus.OK.value()).equals("hello");
+                .when().get("/")
+                .then().statusCode(HttpStatus.OK.value()).extract();
+
+        System.out.println("==========" + response.body().asPrettyString());
+
+        assertAll(
+                () -> Assertions.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
+                () -> Assertions.assertThat(response.body().asPrettyString()).isEqualTo("hello3")
+
+        );
+
     }
 }
