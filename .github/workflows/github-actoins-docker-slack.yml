@@ -3,7 +3,8 @@ name: CI/CD with Gradle, Docker, Slack
 on:
   push:
     branches: [ main ]
-    pull_request: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
