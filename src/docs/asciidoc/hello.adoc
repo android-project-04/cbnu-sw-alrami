@@ -3,7 +3,7 @@
 :toclevels: 2
 :sectlinks:
 
-[[resources-post]]
+[[resources-hello]]
 == GET
 
 [[resources-hello]]
