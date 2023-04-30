@@ -1,0 +1,17 @@
+= Spring REST Docs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[resources-post]]
+== GET
+
+[[resources-hello]]
+=== 헬스 체킹용 API
+
+==== HTTP request
+include::{snippets}/hello/http-request.adoc[]
+
+
+==== HTTP response
+include::{snippets}/hello/http-response.adoc[]
