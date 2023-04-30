@@ -58,10 +58,13 @@ jobs:
         rm -f ~/.gradle/caches/modules-2/modules-2.lock
         rm -f ~/.gradle/caches/modules-2/gc.properties
 
+    - name: run ls build libs
+      run: ls ./build/libs
+    - name: run ls build
+      run: ls ./build
+
     - name: Docker build
       run: |
-        ls ./
-        ls ./build
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -t ${{ secrets.PROJECT_NAME }} .
         docker tag ${{ secrets.PROJECT_NAME }} ${{ secrets.DOCKER_HUB_REPO }}:${GITHUB_SHA::7}
