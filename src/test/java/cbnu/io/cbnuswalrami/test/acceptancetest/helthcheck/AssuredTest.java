@@ -1,5 +1,6 @@
-package cbnu.io.cbnuswalrami.test;
+package cbnu.io.cbnuswalrami.test.acceptancetest.helthcheck;
 
+import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -30,7 +31,7 @@ import static org.springframework.restdocs.restassured3.RestAssuredRestDocumenta
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
-public class AssuredTest {
+public class AssuredTest extends DatabaseTestBase {
 
     public static final String BASE_URL = "http://localhost";
 
@@ -65,11 +66,10 @@ public class AssuredTest {
                 .when().get("/")
                 .then().statusCode(HttpStatus.OK.value()).extract();
 
-        System.out.println("==========" + response.body().asPrettyString());
 
         assertAll(
                 () -> Assertions.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
-                () -> Assertions.assertThat(response.body().asPrettyString()).isEqualTo("hello4")
+                () -> Assertions.assertThat(response.body().asPrettyString()).isEqualTo("hello5")
 
         );
 
