@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.google.common.base.CaseFormat;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+@Component
 public class DatabaseCleanup implements InitializingBean {
 
     @PersistenceContext
