@@ -1,9 +1,8 @@
 package cbnu.io.cbnuswalrami.common.configuration.rdb;
 
 import org.springframework.beans.factory.InitializingBean;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,15 +31,9 @@ public class DatabaseCleanup implements InitializingBean {
         entityManager.flush();
         entityManager.clear();
 
-        // 재약조건 무효화
-        entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE").executeUpdate();
 
         for (String tableName : tableNames) {
             entityManager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
-            entityManager.createNativeQuery("ALTER TABLE " + tableName + " ALTER COLUMN ID RESTART WITH 1").executeUpdate();
         }
-
-        // 재약조건 재설정
-        entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY TRUE").executeUpdate();
     }
 }

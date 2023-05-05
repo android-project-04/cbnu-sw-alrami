@@ -1,4 +1,4 @@
-package cbnu.io.cbnuswalrami.test.acceptancetest.helthcheck;
+package cbnu.io.cbnuswalrami.test.acceptance.helthcheck;
 
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import io.restassured.RestAssured;
