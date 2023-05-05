@@ -1,4 +1,4 @@
-package cbnu.io.cbnuswalrami.business.web.user.presentation.response;
+package cbnu.io.cbnuswalrami.common.response;
 
 import org.springframework.http.HttpStatus;
 
