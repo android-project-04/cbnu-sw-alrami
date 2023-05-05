@@ -64,7 +64,8 @@ public class AssuredTest extends DatabaseTestBase {
                 .filter(document("hello")
                 )
                 .when().get("/")
-                .then().statusCode(HttpStatus.OK.value()).extract();
+                .then().statusCode(HttpStatus.OK.value()).assertThat().extract();
+
 
 
         assertAll(
