@@ -51,6 +51,10 @@ jobs:
       run: ./gradlew test --no-daemon
       working-directory: ${{ env.working-directory }}
 
+    - name: Create Rest Docs
+      run: ./gradlew bootJar -x test
+      working-directory: ${{ env.working-directory }}
+
     - name: Build with Gradle
       run: ./gradlew build -x test --parallel --no-daemon
       working-directory: ${{ env.working-directory }}
