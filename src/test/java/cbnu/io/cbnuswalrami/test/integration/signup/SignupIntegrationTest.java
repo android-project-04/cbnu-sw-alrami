@@ -1,13 +1,13 @@
 package cbnu.io.cbnuswalrami.test.integration.signup;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Users;
+import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.Role;
-import cbnu.io.cbnuswalrami.business.core.domon.user.infrastructure.UserJpaRepository;
+import cbnu.io.cbnuswalrami.business.core.domon.user.infrastructure.command.MemberJpaRepository;
 import cbnu.io.cbnuswalrami.business.web.user.application.SignupCommand;
 import cbnu.io.cbnuswalrami.business.web.user.presentation.request.SignupRequest;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.common.exception.common.CbnuException;
-import cbnu.io.cbnuswalrami.test.helper.fixture.UserFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.MemberFixture;
 import cbnu.io.cbnuswalrami.test.helper.fake.s3.S3Configuration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.multipart.MultipartFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,13 +24,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @Import(S3Configuration.class)
+@DisplayName("회원가입 통합 테스트")
+@ActiveProfiles("test")
 public class SignupIntegrationTest extends DatabaseTestBase {
 
     @Autowired
     private SignupCommand signupCommand;
 
     @Autowired
-    private UserJpaRepository userJpaRepository;
+    private MemberJpaRepository userJpaRepository;
 
 
     @DisplayName("올바르지않은 패스워드로 회원가입하면 예외를 반환한다.")
@@ -83,7 +86,7 @@ public class SignupIntegrationTest extends DatabaseTestBase {
     public void given_exist_user_when_signup_then_ex() {
         // given
         String pictureUrl = "abc.ac.kr";
-        Users user = UserFixture.createUser();
+        Member user = MemberFixture.createMember();
         MultipartFile multipartFile = new MockMultipartFile(
                 "file",
                 "hello.jpeg",
@@ -106,13 +109,14 @@ public class SignupIntegrationTest extends DatabaseTestBase {
     @Test
     public void given_exist_student_number_when_signup_then_ex() {
         // given
-        Users user = UserFixture.createUser();
+        Member user = MemberFixture.createMember();
         MultipartFile multipartFile = new MockMultipartFile(
                 "file",
                 "hello.jpeg",
                 MediaType.IMAGE_JPEG_VALUE,
                 "Hello, World".getBytes()
-        );        SignupRequest signupRequest = new SignupRequest(
+        );
+        SignupRequest signupRequest = new SignupRequest(
                 "aaaaa123",
                 "Sqwer123@@@",
                 user.getStudentNumber().getStudentNumber()
@@ -134,11 +138,11 @@ public class SignupIntegrationTest extends DatabaseTestBase {
     @Test
     public void given_valid_user_when_signup_then_normal_grant() {
         // given
-        Users user = UserFixture.createUser();
+        Member member = MemberFixture.createMember();
         SignupRequest signupRequest = new SignupRequest(
-                user.getLoginId().getLoginId(),
-                user.getPassword().getPassword(),
-                user.getStudentNumber().getStudentNumber()
+                "aaaaa123",
+                "Sqwer123@@@",
+                2020110110
         );
         MultipartFile multipartFile = new MockMultipartFile(
                 "file",
@@ -149,7 +153,7 @@ public class SignupIntegrationTest extends DatabaseTestBase {
 
 
         // when
-        Users signup = signupCommand.signup(signupRequest, multipartFile);
+        Member signup = signupCommand.signup(signupRequest, multipartFile);
 
         // then
         assertEquals(Role.NORMAL, signup.getRole());
@@ -172,9 +176,9 @@ public class SignupIntegrationTest extends DatabaseTestBase {
 
 
         // when - 회원가입
-        Users signupUsers = signupCommand.signup(new SignupRequest(loginId, password, studentNumber), multipartFile);
+        Member signupMember = signupCommand.signup(new SignupRequest(loginId, password, studentNumber), multipartFile);
 
         // then - userId == 1
-        assertThat(signupUsers).isNotNull();
+        assertThat(signupMember).isNotNull();
     }
 }
