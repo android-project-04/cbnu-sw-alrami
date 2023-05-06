@@ -9,9 +9,11 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.TestPropertySourceUtils;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 @Testcontainers
 @ContextConfiguration(initializers = DatabaseTestBase.DataSourceInitializer.class)
@@ -22,6 +24,13 @@ public abstract class DatabaseTestBase {
 
         @Container
         private static final MySQLContainer database = new MySQLContainer("mysql:latest");
+
+        private static final String REDIS_DOCKER_IMAGE = "redis:5.0.3-alpine";
+
+        GenericContainer<?> REDIS_CONTAINER =
+                new GenericContainer<>(DockerImageName.parse(REDIS_DOCKER_IMAGE))
+                        .withExposedPorts(6379)
+                        .withReuse(true);
 
         @Override
         public void initialize(ConfigurableApplicationContext applicationContext) {
@@ -34,6 +43,9 @@ public abstract class DatabaseTestBase {
             );
             database.withInitScript("init.sql");
 
+            REDIS_CONTAINER.start();
+            System.setProperty("spring.redis.host", REDIS_CONTAINER.getHost());
+            System.setProperty("spring.redis.port", REDIS_CONTAINER.getMappedPort(6379).toString());
         }
     }
 

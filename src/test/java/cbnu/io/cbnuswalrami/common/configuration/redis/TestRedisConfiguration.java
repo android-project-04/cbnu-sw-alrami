@@ -3,12 +3,15 @@ package cbnu.io.cbnuswalrami.common.configuration.redis;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Profile("test")
 @Configuration
@@ -21,7 +24,8 @@ public class TestRedisConfiguration {
     @Value("${spring.redis.port}")
     private int redisPort;
 
-    @Bean
+    @Primary
+    @Bean("testRedisConnectionFactory")
     public RedisConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration redisConfiguration = new RedisStandaloneConfiguration();
         redisConfiguration.setHostName(this.redisHost);
@@ -30,10 +34,21 @@ public class TestRedisConfiguration {
         return new LettuceConnectionFactory(redisConfiguration);
     }
 
-    @Bean(name = "redisStringTemplate")
+    @Primary
+    @Bean(name = "testRedisStringTemplate")
     public RedisTemplate<String, String> redisTemplate() {
         RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         return redisTemplate;
+    }
+
+    @Primary
+    @Bean(name = "testSessionRedisTemplate")
+    public StringRedisTemplate stringRedisTemplate(){
+        StringRedisTemplate stringRedisTemplate=new StringRedisTemplate();
+        stringRedisTemplate.setConnectionFactory(redisConnectionFactory());
+        stringRedisTemplate.setKeySerializer(new StringRedisSerializer());
+        stringRedisTemplate.setValueSerializer(new StringRedisSerializer());
+        return stringRedisTemplate;
     }
 }
