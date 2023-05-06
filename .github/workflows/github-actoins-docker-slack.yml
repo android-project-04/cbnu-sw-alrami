@@ -70,8 +70,8 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -t ${{ secrets.PROJECT_NAME }} .
-        docker tag ${{ secrets.PROJECT_NAME }} ${{ secrets.DOCKER_HUB_REPO }}:${GITHUB_SHA::7}
-        docker push ${{ secrets.DOCKER_HUB_REPO }}:${GITHUB_SHA::7}
+        docker tag ${{ secrets.PROJECT_NAME }} ${{ secrets.DOCKER_HUB_REPO }}/$${{ secrets.PROJECT_NAME }}:${GITHUB_SHA::7}
+        docker push ${{ secrets.DOCKER_HUB_REPO }}/$${{ secrets.PROJECT_NAME }}:${GITHUB_SHA::7}
 
     - name: Deploy
       uses: appleboy/ssh-action@master
@@ -82,8 +82,8 @@ jobs:
         envs: GITHUB_SHA
         script: |
           docker rmi $(docker images -q)
-          docker pull ${{ secrets.DOCKER_HUB_REPO }}:${GITHUB_SHA::7}
-          docker tag ${{ secrets.DOCKER_HUB_REPO }}:${GITHUB_SHA::7} ${{ secrets.PROJECT_NAME }}
+          docker pull ${{ secrets.DOCKER_HUB_REPO }}/$${{ secrets.PROJECT_NAME }}:${GITHUB_SHA::7}
+          docker tag ${{ secrets.DOCKER_HUB_REPO }}/$${{ secrets.PROJECT_NAME }}:${GITHUB_SHA::7} ${{ secrets.PROJECT_NAME }}
           docker rm -f ${{ secrets.PROJECT_NAME }}
           docker run -d --name ${{ secrets.PROJECT_NAME }} -p 80:8080 ${{ secrets.PROJECT_NAME }}:latest
 
@@ -91,7 +91,7 @@ jobs:
       uses: 8398a7/action-slack@v3
       with:
         status: ${{ job.status }}
-        author_name: Github Action Test
+        author_name: Github Action
         fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
