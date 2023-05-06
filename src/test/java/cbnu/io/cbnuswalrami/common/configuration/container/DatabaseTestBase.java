@@ -2,16 +2,21 @@ package cbnu.io.cbnuswalrami.common.configuration.container;
 
 import cbnu.io.cbnuswalrami.common.configuration.annotation.IntegrationTest;
 import cbnu.io.cbnuswalrami.common.configuration.rdb.DatabaseCleanup;
+import cbnu.io.cbnuswalrami.common.configuration.redis.RedisInitialization;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.TestPropertySourceUtils;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 @Testcontainers
+@ContextConfiguration(initializers = DatabaseTestBase.DataSourceInitializer.class)
 @IntegrationTest
 public abstract class DatabaseTestBase {
 
@@ -19,6 +24,13 @@ public abstract class DatabaseTestBase {
 
         @Container
         private static final MySQLContainer database = new MySQLContainer("mysql:latest");
+
+        private static final String REDIS_DOCKER_IMAGE = "redis:5.0.3-alpine";
+
+        GenericContainer<?> REDIS_CONTAINER =
+                new GenericContainer<>(DockerImageName.parse(REDIS_DOCKER_IMAGE))
+                        .withExposedPorts(6379)
+                        .withReuse(true);
 
         @Override
         public void initialize(ConfigurableApplicationContext applicationContext) {
@@ -29,16 +41,24 @@ public abstract class DatabaseTestBase {
                     "spring.datasource.username=" + database.getUsername(),
                     "spring.datasource.password=" + database.getPassword()
             );
-            database.withInitScript("/db/init.sql");
+            database.withInitScript("init.sql");
+
+            REDIS_CONTAINER.start();
+            System.setProperty("spring.redis.host", REDIS_CONTAINER.getHost());
+            System.setProperty("spring.redis.port", REDIS_CONTAINER.getMappedPort(6379).toString());
         }
     }
 
     @Autowired
     private DatabaseCleanup databaseCleanup;
 
+    @Autowired
+    private RedisInitialization redisInitialization;
+
     @BeforeEach
     void cleanDB() {
         databaseCleanup.execute();
+        redisInitialization.init();
     }
 
 }

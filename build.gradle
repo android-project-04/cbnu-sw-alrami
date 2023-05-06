@@ -39,6 +39,7 @@ dependencies {
 	// SpringBoot
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 	// JPA, QueryDSL
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -48,6 +49,9 @@ dependencies {
 
 	// Spring Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	// MySQL
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -76,6 +80,12 @@ dependencies {
 
 	// Google
 	implementation 'com.google.guava:guava:31.1-jre'
+	testImplementation 'com.google.code.gson:gson:2.10.1'
+
+	// AWS S3
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws-ses:2.4.4'
+	implementation 'commons-fileupload:commons-fileupload:1.5'
+	implementation 'commons-io:commons-io:2.11.0'
 }
 
 tasks.named('test') {

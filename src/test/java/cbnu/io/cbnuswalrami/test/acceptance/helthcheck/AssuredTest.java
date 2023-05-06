@@ -1,4 +1,4 @@
-package cbnu.io.cbnuswalrami.test.acceptancetest.helthcheck;
+package cbnu.io.cbnuswalrami.test.acceptance.helthcheck;
 
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import io.restassured.RestAssured;
@@ -8,10 +8,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -31,6 +28,7 @@ import static org.springframework.restdocs.restassured3.RestAssuredRestDocumenta
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
+@DisplayName("헬스체크 API 인수 테스트")
 public class AssuredTest extends DatabaseTestBase {
 
     public static final String BASE_URL = "http://localhost";
@@ -55,6 +53,7 @@ public class AssuredTest extends DatabaseTestBase {
     }
 
 
+    @DisplayName("헬스체크 API는 OK Status를 반환한다.")
     @Test
     public void given_when_then() {
         // given - precondition or setup
@@ -64,7 +63,8 @@ public class AssuredTest extends DatabaseTestBase {
                 .filter(document("hello")
                 )
                 .when().get("/")
-                .then().statusCode(HttpStatus.OK.value()).extract();
+                .then().statusCode(HttpStatus.OK.value()).assertThat().extract();
+
 
 
         assertAll(

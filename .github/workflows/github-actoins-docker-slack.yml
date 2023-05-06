@@ -13,6 +13,7 @@ jobs:
     env:
       working-directory: ./
       APPLICATION: ${{ secrets.APPLICATION }}
+      APPLICATION_TEST: ${{ secrets.APPLICATION_TEST }}
 
     steps:
     - uses: actions/checkout@v3
@@ -34,7 +35,9 @@ jobs:
 
     - uses: actions/checkout@v3
     - run: touch ./src/main/resources/application.yml
+    - run: touch ./src/test/resources/application-test.yml
     - run: echo "${{env.APPLICATION}}" > ./src/main/resources/application.yml
+    - run: echo "${{env.APPLICATION_TEST}}" > ./src/main/resources/application-test.yml
     - uses: actions/upload-artifact@v2
       with:
         name: application.yml
