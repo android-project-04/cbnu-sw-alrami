@@ -1,6 +1,6 @@
 package cbnu.io.cbnuswalrami.business.web.user.presentation;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Users;
+import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.user.application.SignupCommand;
 import cbnu.io.cbnuswalrami.business.web.user.presentation.request.SignupRequest;
 import cbnu.io.cbnuswalrami.common.response.ApiResponse;
@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/member")
 public class SignupAPI {
 
     private final SignupCommand signupCommand;
@@ -28,7 +28,7 @@ public class SignupAPI {
 
             ) {
         // 회원가입
-        Users signup = signupCommand.signup(request, file);
+        Member signup = signupCommand.signup(request, file);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.of(signup.getId(), HttpStatus.CREATED));
     }
