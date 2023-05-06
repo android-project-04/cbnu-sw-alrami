@@ -70,8 +70,8 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -t ${{ secrets.PROJECT_NAME }} .
-        docker tag ${{ secrets.PROJECT_NAME }} ${{ secrets.DOCKER_HUB_REPO }}/$${{ secrets.PROJECT_NAME }}:${GITHUB_SHA::7}
-        docker push ${{ secrets.DOCKER_HUB_REPO }}/$${{ secrets.PROJECT_NAME }}:${GITHUB_SHA::7}
+        docker tag ${{ secrets.PROJECT_NAME }} ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.PROJECT_NAME }}:${GITHUB_SHA::7}
+        docker push ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.PROJECT_NAME }}:${GITHUB_SHA::7}
 
     - name: Deploy
       uses: appleboy/ssh-action@master
