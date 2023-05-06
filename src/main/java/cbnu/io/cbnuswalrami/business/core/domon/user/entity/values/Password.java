@@ -1,6 +1,8 @@
 package cbnu.io.cbnuswalrami.business.core.domon.user.entity.values;
 
+import cbnu.io.cbnuswalrami.business.core.domon.user.infrastructure.helper.PasswordEncodeHelper;
 import cbnu.io.cbnuswalrami.business.core.error.ErrorField;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.Embeddable;
 import java.util.Objects;
@@ -20,22 +22,17 @@ public class Password {
     /**
      * @Nullary-Constructor. JPA 기본 생성자로 member 외부 패키지에서 호출하지 말 것.
      */
+
+    private Password(String password) {
+        validatePassword(password);
+        String encodedPassword = PasswordEncodeHelper.encode(password);
+        this.password = encodedPassword;
+    }
+
     protected Password() {
+
     }
 
-    public Password(String loginPassword) {
-        validatePassword(loginPassword);
-        this.password = loginPassword;
-    }
-
-    public Password(boolean encoded, String loginPassword) {
-        if (encoded) {
-            this.password = loginPassword;
-            return;
-        }
-        validatePassword(loginPassword);
-        this.password = loginPassword;
-    }
 
     private void validatePassword(String password) {
         if (password == null) {
