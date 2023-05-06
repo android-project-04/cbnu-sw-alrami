@@ -82,6 +82,6 @@ public class SignupAcceptanceTest extends DatabaseTestBase {
                 ))
 ;
         // then - signup
-        signup.when().post("/api/users/signup").then().statusCode(HttpStatus.CREATED.value());
+        signup.when().post("/api/member/signup").then().statusCode(HttpStatus.CREATED.value());
     }
 }
