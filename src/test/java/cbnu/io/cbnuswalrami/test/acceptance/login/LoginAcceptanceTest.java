@@ -7,6 +7,7 @@ import cbnu.io.cbnuswalrami.business.web.user.application.LoginCommand;
 import cbnu.io.cbnuswalrami.business.web.user.application.SignupCommand;
 import cbnu.io.cbnuswalrami.business.web.user.presentation.request.SignupRequest;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
+import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
 import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -28,6 +29,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static io.restassured.RestAssured.*;
 import static io.restassured.RestAssured.baseURI;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -44,7 +46,7 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
     private int port = 8080;
 
     @Autowired
-    private LoginCommand loginCommand;
+    private SignupFixture signupFixture;
 
     @Autowired
     private SignupCommand signupCommand;
@@ -52,7 +54,10 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
     @Autowired
     private ApprovalChangeCommand approvalChangeCommand;
 
-    private RequestSpecification documentationSpec = new RequestSpecBuilder().setPort(port).setBaseUri(BASE_URL).build();
+    private RequestSpecification documentationSpec = new RequestSpecBuilder()
+            .setPort(port)
+            .setBaseUri(BASE_URL)
+            .build();
 
     @BeforeAll
     public void configureRestAssured() {
@@ -75,19 +80,15 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
         // given - loginId, password
         String loginId = "abcd1234";
         String password = "Abcd1234@!";
-        byte[] bytes = "Hello, World".getBytes();
-        SignupRequest signupRequest = new SignupRequest(loginId, password, 2020110110);
-        MockMultipartFile file = new MockMultipartFile("file", "file.png", MediaType.IMAGE_PNG_VALUE, bytes);
-
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("loginId", loginId);
         jsonObject.addProperty("password", password);
 
         // 회원가입
-        Member signupMember = signupCommand.signup(signupRequest, file);
+        Member member = signupFixture.signupMember(loginId, password);
 
         // 승인된 멤버로 전환
-        approvalChangeCommand.changeApproval(signupMember.getId());
+        approvalChangeCommand.changeApproval(member.getId());
 
         // when - login
         given(documentationSpec)
