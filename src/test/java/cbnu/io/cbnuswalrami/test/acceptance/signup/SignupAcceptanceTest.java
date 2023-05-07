@@ -19,7 +19,10 @@ import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static io.restassured.RestAssured.*;
+import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
 @DisplayName("회원가입 기능 인수 테스트")
@@ -33,7 +36,10 @@ public class SignupAcceptanceTest extends DatabaseTestBase {
     private int port = 8080;
 
 
-    private RequestSpecification documentationSpec = new RequestSpecBuilder().setPort(port).setBaseUri(BASE_URL).build();
+    private RequestSpecification documentationSpec = new RequestSpecBuilder()
+            .setPort(port)
+            .setBaseUri(BASE_URL)
+            .build();
 
     @BeforeAll
     public void configureRestAssured() {
@@ -59,14 +65,17 @@ public class SignupAcceptanceTest extends DatabaseTestBase {
         jsonObject.addProperty("studentNumber", 2020110110);
         byte[] bytes = "Hello, World".getBytes();
 
-
         RequestSpecification signup = RestAssured.given(documentationSpec)
-                .multiPart("request", jsonObject.toString(), "application/json")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .multiPart("file", "file.png", bytes, "multipart/form-data")
-                .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+                .multiPart("request", jsonObject.toString(), APPLICATION_JSON_VALUE)
+                .contentType(APPLICATION_JSON_VALUE)
+                .multiPart("file", "file.png", bytes, MULTIPART_FORM_DATA_VALUE)
+                .contentType(MULTIPART_FORM_DATA_VALUE)
                 .filter(document(
                         "users-post",
+                        requestParts(
+                                partWithName("file").description("학생증 사진"),
+                                partWithName("request").description("유저 정보")
+                        ),
                         requestPartFields(
                                 "request",
                                 fieldWithPath("loginId").description("로그인 아이디"),
@@ -79,9 +88,12 @@ public class SignupAcceptanceTest extends DatabaseTestBase {
                                 fieldWithPath("code").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                 fieldWithPath("data").type(JsonFieldType.NUMBER).description("유저 id값")
                         )
-                ))
-;
+                ));
+
         // then - signup
-        signup.when().post("/api/member/signup").then().statusCode(HttpStatus.CREATED.value());
+        signup.when()
+                .post("/api/member/signup")
+                .then()
+                .statusCode(HttpStatus.CREATED.value());
     }
 }
