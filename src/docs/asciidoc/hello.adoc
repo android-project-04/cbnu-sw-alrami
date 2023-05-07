@@ -1,13 +1,12 @@
-= Spring REST Docs
+= 🐳 충북대 소프트웨어학과 알림이 API 문서 🐳
 :toc: left
 :toclevels: 2
 :sectlinks:
 
-// [[resources-hello]]
-== GET
 
 [[resources-hello]]
-=== 헬스 체킹용 API
+== 헬스 체크
+=== GET
 
 ==== HTTP request
 include::{snippets}/hello/http-request.adoc[]
@@ -21,6 +20,13 @@ include::{snippets}/hello/response-body.adoc[]
 === POST
 ==== HTTP request
 file은 multipart/form-data로 주세요.
+
+png, jpeg 등
+include::{snippets}/users-post/curl-request.adoc[]
+include::{snippets}/users-post/request-parts.adoc[]
+
+request에 넣을 json 유저 정보
+
 include::{snippets}/users-post/request-part-request-fields.adoc[]
 
 
