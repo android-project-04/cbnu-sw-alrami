@@ -2,7 +2,16 @@ buildscript {
 	ext {
 		queryDslVersion = "5.0.0"
 	}
+	repositories {
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath "com.github.nbaztec:coveralls-jacoco-gradle-plugin:1.2.15"
+	}
 }
+
 
 plugins {
 	id 'java'
@@ -12,6 +21,11 @@ plugins {
 
 	//rest docs
 	id "org.asciidoctor.jvm.convert" version "3.3.2"
+
+	// test coverage
+	id 'jacoco'
+//	id 'com.github.kt3k.coveralls' version
+	id "com.github.nbaztec.coveralls-jacoco" version "1.2.15"
 }
 
 group = 'cbnu.io'
@@ -77,6 +91,7 @@ dependencies {
 	testImplementation "org.testcontainers:mysql:1.17.6"
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
 	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+	testImplementation 'org.eluder.coveralls:coveralls-maven-plugin:4.3.0'
 
 	// Google
 	implementation 'com.google.guava:guava:31.1-jre'
@@ -138,3 +153,16 @@ configurations {
 compileQuerydsl {
 	options.annotationProcessorPath = configurations.querydsl
 }
+
+
+//--------------jacoco----------------------
+jacocoTestReport {
+	reports {
+		xml.enabled = true // coveralls plugin depends on xml format report
+		html.enabled = true
+	}
+}
+
+//coveralls {
+//	jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
+//}
