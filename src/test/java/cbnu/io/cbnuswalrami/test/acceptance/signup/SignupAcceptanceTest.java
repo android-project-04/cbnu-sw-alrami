@@ -11,10 +11,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.payload.RequestPartFieldsSnippet;
+import org.springframework.restdocs.payload.ResponseFieldsSnippet;
+import org.springframework.restdocs.request.RequestPartsSnippet;
 import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -59,35 +61,19 @@ public class SignupAcceptanceTest extends DatabaseTestBase {
     @DisplayName("회원가입 API 테스트")
     public void given_valid_signup_info_when_signup_then_id() {
         // given - loginId, password, studentNumber
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("loginId", "abcd1234");
-        jsonObject.addProperty("password", "Abcd1234@!");
-        jsonObject.addProperty("studentNumber", 2020110110);
-        byte[] bytes = "Hello, World".getBytes();
+        JsonObject jsonObject = getSignupMember();
+        byte[] fileByte = "Hello, World".getBytes();
 
         RequestSpecification signup = RestAssured.given(documentationSpec)
                 .multiPart("request", jsonObject.toString(), APPLICATION_JSON_VALUE)
                 .contentType(APPLICATION_JSON_VALUE)
-                .multiPart("file", "file.png", bytes, MULTIPART_FORM_DATA_VALUE)
+                .multiPart("file", "file.png", fileByte, MULTIPART_FORM_DATA_VALUE)
                 .contentType(MULTIPART_FORM_DATA_VALUE)
                 .filter(document(
                         "users-post",
-                        requestParts(
-                                partWithName("file").description("학생증 사진"),
-                                partWithName("request").description("유저 정보")
-                        ),
-                        requestPartFields(
-                                "request",
-                                fieldWithPath("loginId").description("로그인 아이디"),
-                                fieldWithPath("password").description("패스워드"),
-                                fieldWithPath("studentNumber").description("학번")
-                        ),
-                        responseFields(
-                                fieldWithPath("eventTime").type(JsonFieldType.STRING).description("이벤트 시간"),
-                                fieldWithPath("status").type(JsonFieldType.STRING).description("HTTP 상태값"),
-                                fieldWithPath("code").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
-                                fieldWithPath("data").type(JsonFieldType.NUMBER).description("유저 id값")
-                        )
+                        getRequestPartsSnippet(),
+                        getRequestPartFieldsSnippet(),
+                        getResponseFieldsSnippet()
                 ));
 
         // then - signup
@@ -95,5 +81,38 @@ public class SignupAcceptanceTest extends DatabaseTestBase {
                 .post("/api/member/signup")
                 .then()
                 .statusCode(HttpStatus.CREATED.value());
+    }
+
+    private RequestPartsSnippet getRequestPartsSnippet() {
+        return requestParts(
+                partWithName("file").description("학생증 사진"),
+                partWithName("request").description("유저 정보")
+        );
+    }
+
+    private RequestPartFieldsSnippet getRequestPartFieldsSnippet() {
+        return requestPartFields(
+                "request",
+                fieldWithPath("loginId").description("로그인 아이디"),
+                fieldWithPath("password").description("패스워드"),
+                fieldWithPath("studentNumber").description("학번")
+        );
+    }
+
+    private ResponseFieldsSnippet getResponseFieldsSnippet() {
+        return responseFields(
+                fieldWithPath("eventTime").type(JsonFieldType.STRING).description("이벤트 시간"),
+                fieldWithPath("status").type(JsonFieldType.STRING).description("HTTP 상태값"),
+                fieldWithPath("code").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                fieldWithPath("data").type(JsonFieldType.NUMBER).description("유저 id값")
+        );
+    }
+
+    private static JsonObject getSignupMember() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("loginId", "abcd1234");
+        jsonObject.addProperty("password", "Abcd1234@!");
+        jsonObject.addProperty("studentNumber", 2020110110);
+        return jsonObject;
     }
 }
