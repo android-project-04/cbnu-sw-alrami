@@ -2,14 +2,6 @@ buildscript {
 	ext {
 		queryDslVersion = "5.0.0"
 	}
-	repositories {
-		maven {
-			url "https://plugins.gradle.org/m2/"
-		}
-	}
-	dependencies {
-		classpath "com.github.nbaztec:coveralls-jacoco-gradle-plugin:1.2.15"
-	}
 }
 
 
@@ -24,8 +16,10 @@ plugins {
 
 	// test coverage
 	id 'jacoco'
-//	id 'com.github.kt3k.coveralls' version
-	id "com.github.nbaztec.coveralls-jacoco" version "1.2.15"
+}
+
+jacoco {
+	toolVersion = '0.8.5'
 }
 
 group = 'cbnu.io'
@@ -128,6 +122,11 @@ bootJar {
 		from asciidoctor.outputDir
 		into "src/main/resources/static/docs"
 	}
+
+	copy {
+		from "build/reports/jacoco/test/html"
+		into "src/main/resources/static/docs"
+	}
 }
 
 // QueryDSL
@@ -163,6 +162,6 @@ jacocoTestReport {
 	}
 }
 
-//coveralls {
-//	jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
-//}
+tasks.withType(Test) {
+	jacoco.includeNoLocationClasses = true
+}
