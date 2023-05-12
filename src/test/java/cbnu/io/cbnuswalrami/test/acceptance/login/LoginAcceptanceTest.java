@@ -3,9 +3,6 @@ package cbnu.io.cbnuswalrami.test.acceptance.login;
 import cbnu.io.cbnuswalrami.business.common.filter.SecurityFilter;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.user.application.ApprovalChangeCommand;
-import cbnu.io.cbnuswalrami.business.web.user.application.LoginCommand;
-import cbnu.io.cbnuswalrami.business.web.user.application.SignupCommand;
-import cbnu.io.cbnuswalrami.business.web.user.presentation.request.SignupRequest;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
 import com.google.gson.JsonObject;
@@ -18,18 +15,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.headers.ResponseHeadersSnippet;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.RestAssured.baseURI;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -47,9 +42,6 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
 
     @Autowired
     private SignupFixture signupFixture;
-
-    @Autowired
-    private SignupCommand signupCommand;
 
     @Autowired
     private ApprovalChangeCommand approvalChangeCommand;
@@ -80,9 +72,7 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
         // given - loginId, password
         String loginId = "abcd1234";
         String password = "Abcd1234@!";
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("loginId", loginId);
-        jsonObject.addProperty("password", password);
+        JsonObject jsonObject = getLoginMember(loginId, password);
 
         // 회원가입
         Member member = signupFixture.signupMember(loginId, password);
@@ -96,16 +86,31 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
                 .body(jsonObject.toString())
                 .filter(document(
                         "login",
-                        requestFields(
-                                fieldWithPath("loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
-                                fieldWithPath("password").type(JsonFieldType.STRING).description("패스워드")
-                        ),
-                        responseHeaders(
-                                headerWithName(SecurityFilter.AUTHORIZATION_HEADER).description("Access token"),
-                                headerWithName(SecurityFilter.SESSION_ID).description("Refresh token"),
-                                headerWithName(SecurityFilter.AUTHORITY).description("멤버 권한")
-                        )
+                        getRequestFieldsSnippet(),
+                        getResponseHeadersSnippet()
                 ))
                 .when().post("/api/member/login").then().statusCode(HttpStatus.OK.value());
+    }
+
+    private static JsonObject getLoginMember(String loginId, String password) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("loginId", loginId);
+        jsonObject.addProperty("password", password);
+        return jsonObject;
+    }
+
+    private ResponseHeadersSnippet getResponseHeadersSnippet() {
+        return responseHeaders(
+                headerWithName(SecurityFilter.AUTHORIZATION_HEADER).description("Access token"),
+                headerWithName(SecurityFilter.SESSION_ID).description("Refresh token"),
+                headerWithName(SecurityFilter.AUTHORITY).description("멤버 권한")
+        );
+    }
+
+    private RequestFieldsSnippet getRequestFieldsSnippet() {
+        return requestFields(
+                fieldWithPath("loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
+                fieldWithPath("password").type(JsonFieldType.STRING).description("패스워드")
+        );
     }
 }
