@@ -7,6 +7,9 @@
 문서 -> 
 http://ec2-3-39-25-103.ap-northeast-2.compute.amazonaws.com/docs/hello.html
 
+도메인 주소 -> 
+http://ec2-3-39-25-103.ap-northeast-2.compute.amazonaws.com
+
 <br/>
 
 ``` mermaid
