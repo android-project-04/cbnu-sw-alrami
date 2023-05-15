@@ -14,6 +14,7 @@ import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.access.vote.RoleHierarchyVoter;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -32,6 +33,7 @@ import java.util.List;
 
 @EnableWebSecurity
 @Configuration
+//@EnableGlobalMethodSecurity(jsr250Enabled = true, prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
 
     private final TokenProvider tokenProvider;
@@ -63,7 +65,9 @@ public class SecurityConfig {
                         .antMatchers(
                                 "/api/member/signup",
                                 "/api/member/login"
-                        ).permitAll())
+                        ).permitAll()
+                        .antMatchers("/api/admin/approval/**").hasAuthority("ADMIN")
+                )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(
