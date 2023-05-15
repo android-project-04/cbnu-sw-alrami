@@ -45,3 +45,13 @@ include::{snippets}/login/request-fields.adoc[]
 http 헤더에 담아서 드립니다.
 include::{snippets}/login/http-response.adoc[]
 include::{snippets}/login/response-headers.adoc[]
+
+[[resources-change-approval]]
+== 회원 승인
+=== PUT
+==== http request
+/api/admin/approval/{변경할 유저 아이디값}
+include::{snippets}/change-approval/http-request.adoc[]
+
+==== http response
+include::{snippets}/change-approval/response-fields.adoc[]
