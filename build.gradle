@@ -19,7 +19,7 @@ plugins {
 }
 
 jacoco {
-	toolVersion = '0.8.5'
+	toolVersion = '0.8.7'
 }
 
 group = 'cbnu.io'
@@ -85,7 +85,6 @@ dependencies {
 	testImplementation "org.testcontainers:mysql:1.17.6"
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
 	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
-	testImplementation 'org.eluder.coveralls:coveralls-maven-plugin:4.3.0'
 
 	// Google
 	implementation 'com.google.guava:guava:31.1-jre'

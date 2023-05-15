@@ -55,6 +55,9 @@ jobs:
       run: ./gradlew bootJar -x test
       working-directory: ${{ env.working-directory }}
 
+    - name: Create Jacoco Test Report
+      run: ./gradlew jacocoTestReport
+
     - name: Build with Gradle
       run: ./gradlew build -x test --parallel --no-daemon
       working-directory: ${{ env.working-directory }}
