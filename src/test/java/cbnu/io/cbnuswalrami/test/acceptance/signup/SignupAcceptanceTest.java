@@ -93,9 +93,10 @@ public class SignupAcceptanceTest extends DatabaseTestBase {
     private RequestPartFieldsSnippet getRequestPartFieldsSnippet() {
         return requestPartFields(
                 "request",
-                fieldWithPath("loginId").description("로그인 아이디"),
-                fieldWithPath("password").description("패스워드"),
-                fieldWithPath("studentNumber").description("학번")
+                fieldWithPath("loginId").description("로그인 아이디(8글자 이상의 영어)"),
+                fieldWithPath("password").description("패스워드(최소 8자리 이상, 대/소문자, 숫자 및 특수문자 각 1개 이상 포함)"),
+                fieldWithPath("studentNumber").description("학번"),
+                fieldWithPath("nickname").description("닉네임(2글자 이상의 영어 혹은 한글, 숫자)")
         );
     }
 
@@ -112,6 +113,7 @@ public class SignupAcceptanceTest extends DatabaseTestBase {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("loginId", "abcd1234");
         jsonObject.addProperty("password", "Abcd1234@!");
+        jsonObject.addProperty("nickname", "hero123");
         jsonObject.addProperty("studentNumber", 2020110110);
         return jsonObject;
     }
