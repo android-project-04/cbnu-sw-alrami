@@ -31,7 +31,8 @@ public class LoginIntegrationTest extends DatabaseTestBase {
         // given
         String loginId = "abcd1234";
         String password = "Abcd1234@!";
-        Member member = signupFixture.signupMember(loginId, password);
+        String nickname = "히어로123";
+        Member member = signupFixture.signupMember(loginId, password, nickname);
         LoginRequest loginRequest = new LoginRequest(
                 loginId,
                 password
@@ -51,7 +52,8 @@ public class LoginIntegrationTest extends DatabaseTestBase {
         // given
         String loginId = "abcd1234";
         String password = "Abcd1234@!";
-        Member member = signupFixture.signupMember(loginId, password);
+        String nickname = "히어로123";
+        signupFixture.signupMember(loginId, password, nickname);
         LoginRequest loginRequest = new LoginRequest(
                 loginId,
                 "password@!"

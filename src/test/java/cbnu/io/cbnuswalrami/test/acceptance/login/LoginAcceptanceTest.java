@@ -72,10 +72,11 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
         // given - loginId, password
         String loginId = "abcd1234";
         String password = "Abcd1234@!";
+        String nickname = "히어로123";
         JsonObject jsonObject = getLoginMember(loginId, password);
 
-        // 회원가입
-        Member member = signupFixture.signupMember(loginId, password);
+        // 회원가입r
+        Member member = signupFixture.signupMember(loginId, password, nickname);
 
         // 승인된 멤버로 전환
         approvalChangeCommand.changeApproval(member.getId());
@@ -109,8 +110,8 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
 
     private RequestFieldsSnippet getRequestFieldsSnippet() {
         return requestFields(
-                fieldWithPath("loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
-                fieldWithPath("password").type(JsonFieldType.STRING).description("패스워드")
+                fieldWithPath("loginId").type(JsonFieldType.STRING).description("로그인 아이디(8자리 이상)"),
+                fieldWithPath("password").type(JsonFieldType.STRING).description("패스워드(최소 8자리 이상, 대/소문자, 숫자 및 특수문자 각 1개 이상 포함)")
         );
     }
 }

@@ -22,10 +22,11 @@ public class SignupFixture {
         this.approvalChangeCommand = approvalChangeCommand;
     }
 
-    public Member signupMember(String loginId, String password) {
+    public Member signupMember(String loginId, String password, String nickname) {
         SignupRequest signupRequest = new SignupRequest(
                 loginId,
                 password,
+                nickname,
                 2020110110
         );
         MultipartFile multipartFile = new MockMultipartFile(

@@ -41,6 +41,7 @@ public class SignupIntegrationTest extends DatabaseTestBase {
         // given
         String loginId = "xxx123123";
         String password = "cd1234";
+        String nickname = "히어로123";
         Integer studentNumber = 2020000111;
         MultipartFile multipartFile = new MockMultipartFile(
                 "file",
@@ -49,11 +50,10 @@ public class SignupIntegrationTest extends DatabaseTestBase {
                 "Hello, World".getBytes()
         );
 
-
         // then
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> signupCommand.signup(new SignupRequest(loginId, password, studentNumber), multipartFile));
+                () -> signupCommand.signup(new SignupRequest(loginId, password, nickname, studentNumber), multipartFile));
 
         assertEquals("올바른 비밀번호를 입력해주세요.", exception.getMessage());
 
@@ -65,6 +65,7 @@ public class SignupIntegrationTest extends DatabaseTestBase {
         // given
         String loginId = "abcd1234";
         String password = "Abcd1234@!";
+        String nickname = "히어로123";
         Integer studentNumber = 202011011;
         String pictureUrl = "abc.ac.kr";
         MultipartFile multipartFile = new MockMultipartFile(
@@ -77,7 +78,7 @@ public class SignupIntegrationTest extends DatabaseTestBase {
         // then
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> signupCommand.signup(new SignupRequest(loginId, password, studentNumber), multipartFile));
+                () -> signupCommand.signup(new SignupRequest(loginId, password, nickname, studentNumber), multipartFile));
         assertEquals("10글자의 학번을 입력해주세요.", exception.getMessage());
     }
 
@@ -86,17 +87,18 @@ public class SignupIntegrationTest extends DatabaseTestBase {
     public void given_exist_user_when_signup_then_ex() {
         // given
         String pictureUrl = "abc.ac.kr";
-        Member user = MemberFixture.createMember();
+        Member member = MemberFixture.createMember();
         MultipartFile multipartFile = new MockMultipartFile(
                 "file",
                 "hello.jpeg",
                 MediaType.IMAGE_JPEG_VALUE,
                 "Hello, World".getBytes()
         );
-        userJpaRepository.save(user);
+        userJpaRepository.save(member);
         SignupRequest signupRequest = new SignupRequest(
-                user.getLoginId().getLoginId(),
-                user.getPassword().getPassword(),
+                member.getLoginId().getLoginId(),
+                member.getNickname().getNickname(),
+                member.getPassword().getPassword(),
                 2020110110
         );
 
@@ -109,7 +111,7 @@ public class SignupIntegrationTest extends DatabaseTestBase {
     @Test
     public void given_exist_student_number_when_signup_then_ex() {
         // given
-        Member user = MemberFixture.createMember();
+        Member member = MemberFixture.createMember();
         MultipartFile multipartFile = new MockMultipartFile(
                 "file",
                 "hello.jpeg",
@@ -119,10 +121,11 @@ public class SignupIntegrationTest extends DatabaseTestBase {
         SignupRequest signupRequest = new SignupRequest(
                 "aaaaa123",
                 "Sqwer123@@@",
-                user.getStudentNumber().getStudentNumber()
+                member.getNickname().getNickname(),
+                member.getStudentNumber().getStudentNumber()
         );
 
-        userJpaRepository.save(user);
+        userJpaRepository.save(member);
 
         // when
 
@@ -142,6 +145,7 @@ public class SignupIntegrationTest extends DatabaseTestBase {
         SignupRequest signupRequest = new SignupRequest(
                 "aaaaa123",
                 "Sqwer123@@@",
+                member.getNickname().getNickname(),
                 2020110110
         );
         MultipartFile multipartFile = new MockMultipartFile(
@@ -166,6 +170,7 @@ public class SignupIntegrationTest extends DatabaseTestBase {
         // given
         String loginId = "xxx123123";
         String password = "Sbcd1234@@!!";
+        String nickname = "히어로123";
         Integer studentNumber = 2020000111;
         MultipartFile multipartFile = new MockMultipartFile(
                 "file",
@@ -176,9 +181,35 @@ public class SignupIntegrationTest extends DatabaseTestBase {
 
 
         // when - 회원가입
-        Member signupMember = signupCommand.signup(new SignupRequest(loginId, password, studentNumber), multipartFile);
+        Member signupMember = signupCommand.signup(new SignupRequest(loginId, password, nickname, studentNumber), multipartFile);
 
         // then - userId == 1
         assertThat(signupMember).isNotNull();
+    }
+
+    @DisplayName("이미 존재하는 닉네임으로 회원가입하면 에러를 반환한다.")
+    @Test
+    public void given_exist_nickname_when_signup_then_ex() {
+        // given
+        Member member = MemberFixture.createMember();
+        SignupRequest signupRequest = new SignupRequest(
+                "aaaaa123",
+                "Sqwer123@@@",
+                member.getNickname().getNickname(),
+                2020110110
+        );
+        MultipartFile multipartFile = new MockMultipartFile(
+                "file",
+                "hello.jpeg",
+                MediaType.IMAGE_JPEG_VALUE,
+                "Hello, World".getBytes()
+        );
+
+        // when
+        Member signup = signupCommand.signup(signupRequest, multipartFile);
+
+        // then
+        CbnuException cbnuException = assertThrows(CbnuException.class, () -> signupCommand.signup(signupRequest, multipartFile));
+        assertEquals("이미 존재하는 유저입니다.", cbnuException.getMessage());
     }
 }

@@ -2,6 +2,7 @@ package cbnu.io.cbnuswalrami.business.web.user.application.service;
 
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.LoginId;
+import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.Nickname;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.Password;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.StudentNumber;
 import cbnu.io.cbnuswalrami.business.core.domon.user.infrastructure.command.MemberJpaRepository;
@@ -37,21 +38,17 @@ public class SignupService implements SignupCommand {
         signupValidate(signupRequest);
 
         String url = s3Command.uploadFile(file);
-        String encodedPassword = getEncodedPassword(signupRequest.getPassword());
 
 
         Member member = new Member(
                 LoginId.from(signupRequest.getLoginId()),
                 Password.from(signupRequest.getPassword()),
+                Nickname.from(signupRequest.getNickname()),
                 StudentNumber.from(signupRequest.getStudentNumber()),
                 url
         );
 
         return memberJpaRepository.save(member);
-    }
-
-    private String getEncodedPassword(String password) {
-        return passwordEncoder.encode(password);
     }
 
     private void signupValidate(SignupRequest signupRequest) {
@@ -66,6 +63,12 @@ public class SignupService implements SignupCommand {
 
         Optional<Member> byStudentNumber = memberJpaRepository.findByStudentNumber(StudentNumber.from(signupRequest.getStudentNumber()));
         if (byStudentNumber.isPresent()) {
+            throw CbnuException.of(EXIST_USER);
+        }
+
+        Optional<Member> byNickname = memberJpaRepository.findByNickname(Nickname.from(signupRequest.getNickname()));
+
+        if (byNickname.isPresent()) {
             throw CbnuException.of(EXIST_USER);
         }
     }

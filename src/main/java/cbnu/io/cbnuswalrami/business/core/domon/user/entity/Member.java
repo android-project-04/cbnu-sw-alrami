@@ -30,6 +30,10 @@ public class Member {
     @Column(name = "password")
     private Password password;
 
+    @Embedded
+    @Column(name = "nickname")
+    private Nickname nickname;
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -59,18 +63,20 @@ public class Member {
 
 
 
-    public Member(LoginId loginId, Password password, StudentNumber studentNumber, String userPictureUrl, Role role) {
+    public Member(LoginId loginId, Password password, Nickname nickname, StudentNumber studentNumber, String userPictureUrl, Role role) {
         this.loginId = loginId;
         this.password = password;
+        this.nickname = nickname;
         this.studentNumber = studentNumber;
         this.userPictureUrl = userPictureUrl;
         this.role = role == null ? Role.NORMAL : role;
         this.isDeleted = Deleted.FALSE;
     }
 
-    public Member(LoginId loginId, Password password, StudentNumber studentNumber, String userPictureUrl) {
+    public Member(LoginId loginId, Password password, Nickname nickname, StudentNumber studentNumber, String userPictureUrl) {
         this.loginId = loginId;
         this.password = password;
+        this.nickname = nickname;
         this.studentNumber = studentNumber;
         this.userPictureUrl = userPictureUrl;
         this.role = Role.NORMAL;
@@ -80,6 +86,10 @@ public class Member {
 
     public void changeApprovalToOk() {
         this.approval = Approval.OK;
+    }
+
+    public void changeRoleToAdmin() {
+        this.role = Role.ADMIN;
     }
 
     public Long getId() {
@@ -122,6 +132,10 @@ public class Member {
         return userPictureUrl;
     }
 
+    public Nickname getNickname() {
+        return nickname;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -129,6 +143,7 @@ public class Member {
         return Objects.equals(id, member.id) &&
                 Objects.equals(loginId, member.loginId) &&
                 Objects.equals(password, member.password) &&
+                Objects.equals(nickname, member.nickname) &&
                 Objects.equals(createdAt, member.createdAt) &&
                 Objects.equals(lastModifiedAt, member.lastModifiedAt) &&
                 Objects.equals(studentNumber, member.studentNumber) &&
