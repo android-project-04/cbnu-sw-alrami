@@ -20,9 +20,12 @@ public class SignupRequest {
     @NotNull(message = "학번을 비우면 안됩니다.")
     private Integer studentNumber;
 
-    public SignupRequest(String loginId, String password, Integer studentNumber) {
+    private String nickname;
+
+    public SignupRequest(String loginId, String password, String nickname, Integer studentNumber) {
         this.loginId = loginId;
         this.password = password;
+        this.nickname = nickname;
         this.studentNumber = studentNumber;
     }
 
@@ -40,6 +43,9 @@ public class SignupRequest {
         return studentNumber;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
 
     @Override
     public String toString() {

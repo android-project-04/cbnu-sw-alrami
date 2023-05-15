@@ -65,5 +65,11 @@ public class SignupService implements SignupCommand {
         if (byStudentNumber.isPresent()) {
             throw CbnuException.of(EXIST_USER);
         }
+
+        Optional<Member> byNickname = memberJpaRepository.findByNickname(Nickname.from(signupRequest.getNickname()));
+
+        if (byNickname.isPresent()) {
+            throw CbnuException.of(EXIST_USER);
+        }
     }
 }
