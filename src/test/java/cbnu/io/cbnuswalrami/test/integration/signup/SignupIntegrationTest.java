@@ -186,4 +186,30 @@ public class SignupIntegrationTest extends DatabaseTestBase {
         // then - userId == 1
         assertThat(signupMember).isNotNull();
     }
+
+    @DisplayName("이미 존재하는 닉네임으로 회원가입하면 에러를 반환한다.")
+    @Test
+    public void given_exist_nickname_when_signup_then_ex() {
+        // given
+        Member member = MemberFixture.createMember();
+        SignupRequest signupRequest = new SignupRequest(
+                "aaaaa123",
+                "Sqwer123@@@",
+                member.getNickname().getNickname(),
+                2020110110
+        );
+        MultipartFile multipartFile = new MockMultipartFile(
+                "file",
+                "hello.jpeg",
+                MediaType.IMAGE_JPEG_VALUE,
+                "Hello, World".getBytes()
+        );
+
+        // when
+        Member signup = signupCommand.signup(signupRequest, multipartFile);
+
+        // then
+        CbnuException cbnuException = assertThrows(CbnuException.class, () -> signupCommand.signup(signupRequest, multipartFile));
+        assertEquals("이미 존재하는 유저입니다.", cbnuException.getMessage());
+    }
 }
