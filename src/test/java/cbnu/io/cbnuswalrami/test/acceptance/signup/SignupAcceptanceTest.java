@@ -20,6 +20,7 @@ import org.springframework.restdocs.request.RequestPartsSnippet;
 import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static cbnu.io.cbnuswalrami.test.helper.util.ApiDocumentUtils.*;
 import static io.restassured.RestAssured.*;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -71,6 +72,8 @@ public class SignupAcceptanceTest extends DatabaseTestBase {
                 .contentType(MULTIPART_FORM_DATA_VALUE)
                 .filter(document(
                         "users-post",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
                         getRequestPartsSnippet(),
                         getRequestPartFieldsSnippet(),
                         getResponseFieldsSnippet()

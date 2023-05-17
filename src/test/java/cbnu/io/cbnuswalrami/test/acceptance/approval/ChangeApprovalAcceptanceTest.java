@@ -21,6 +21,7 @@ import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static cbnu.io.cbnuswalrami.test.helper.util.ApiDocumentUtils.*;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -74,10 +75,12 @@ public class ChangeApprovalAcceptanceTest extends DatabaseTestBase {
                 .contentType(ContentType.JSON)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .filter(document(
-                        "change-approval",
-//                        ),
-                        getResponseFieldsSnippet()
-                ))
+                                "change-approval",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                getResponseFieldsSnippet()
+                        )
+                )
                 .when()
                 .put(uri)
                 .then().statusCode(HttpStatus.OK.value());

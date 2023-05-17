@@ -23,6 +23,7 @@ import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static cbnu.io.cbnuswalrami.test.helper.util.ApiDocumentUtils.*;
 import static io.restassured.RestAssured.*;
 import static io.restassured.RestAssured.baseURI;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -87,6 +88,8 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
                 .body(jsonObject.toString())
                 .filter(document(
                         "login",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
                         getRequestFieldsSnippet(),
                         getResponseHeadersSnippet()
                 ))
