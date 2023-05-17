@@ -19,7 +19,7 @@ public class LoginId {
     protected LoginId() {
     }
 
-    public LoginId(String loginId) {
+    private LoginId(String loginId) {
         validateLoginId(loginId);
         this.loginId = loginId;
     }

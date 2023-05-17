@@ -16,7 +16,7 @@ class LoginIdTest {
         String loginId = "123456789123456789";
 
         // then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new LoginId(loginId));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> LoginId.from(loginId));
         String message = exception.getMessage();
         assertEquals("입력 가능한 아이디 최대길이를 초과했습니다.", message);
     }
@@ -28,7 +28,7 @@ class LoginIdTest {
         String loginId = null;
 
         // then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new LoginId(loginId));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> LoginId.from(loginId));
         String message = exception.getMessage();
         assertEquals("아이디를 입력해주세요.", message);
     }
