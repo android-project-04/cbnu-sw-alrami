@@ -1,6 +1,5 @@
 package cbnu.io.cbnuswalrami.test.acceptance.login;
 
-import cbnu.io.cbnuswalrami.business.common.filter.SecurityFilter;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.user.application.ApprovalChangeCommand;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
@@ -23,6 +22,7 @@ import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static cbnu.io.cbnuswalrami.business.common.filter.SecurityFilter.*;
 import static cbnu.io.cbnuswalrami.test.helper.util.ApiDocumentUtils.*;
 import static io.restassured.RestAssured.*;
 import static io.restassured.RestAssured.baseURI;
@@ -105,9 +105,9 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
 
     private ResponseHeadersSnippet getResponseHeadersSnippet() {
         return responseHeaders(
-                headerWithName(SecurityFilter.AUTHORIZATION_HEADER).description("Access token"),
-                headerWithName(SecurityFilter.SESSION_ID).description("Refresh token"),
-                headerWithName(SecurityFilter.AUTHORITY).description("멤버 권한")
+                headerWithName(AUTHORIZATION_HEADER).description("Access token"),
+                headerWithName(SESSION_ID).description("Refresh token, 로그인 시 쿠키에 담아서 주세요."),
+                headerWithName(AUTHORITY).description("멤버 권한")
         );
     }
 
