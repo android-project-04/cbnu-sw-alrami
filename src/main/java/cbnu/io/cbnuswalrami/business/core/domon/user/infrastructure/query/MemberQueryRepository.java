@@ -4,9 +4,12 @@ import cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.Approval;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.LoginId;
+import cbnu.io.cbnuswalrami.business.web.user.presentation.response.MemberDto;
+import cbnu.io.cbnuswalrami.business.web.user.presentation.response.QMemberDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import static cbnu.io.cbnuswalrami.business.core.domon.user.entity.QMember.*;
@@ -29,5 +32,32 @@ public class MemberQueryRepository {
                                 .and(member.isDeleted.eq(Deleted.FALSE))))
                 .fetchOne();
         return Optional.ofNullable(user);
+    }
+
+    public List<MemberDto> findMemberDtosByCursor(Long size) {
+        return queryFactory.select(new QMemberDto(member.id, member.nickname.nickname, member.studentNumber.studentNumber))
+                .from(member)
+                .where(member.approval.eq(Approval.NO))
+                .limit(size)
+                .orderBy(member.id.desc())
+                .fetch();
+    }
+
+    public List<MemberDto> findMemberDtosByCursor(Long size, Long next) {
+        return queryFactory.select(new QMemberDto(member.id, member.nickname.nickname, member.studentNumber.studentNumber))
+                .from(member)
+                .where(member.approval.eq(Approval.NO).and(member.id.lt(next)))
+                .limit(size)
+                .orderBy(member.id.desc())
+                .fetch();
+    }
+
+    public Boolean existMemberById(Long id) {
+        List<Member> fetch = queryFactory.select(member)
+                .from(member)
+                .where(member.id.lt(id))
+                .limit(1L)
+                .fetch();
+        return fetch.size() > 0;
     }
 }
