@@ -3,6 +3,10 @@ package cbnu.io.cbnuswalrami.test.helper.fixture;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 public class MemberFixture {
 
     public static Member createMember() {
@@ -24,5 +28,21 @@ public class MemberFixture {
                 "www.abc.ac.kr",
                 Role.ADMIN
         );
+    }
+
+    public static List<Member> create15NoApprovalMembers() {
+        List<Member> members = new ArrayList<>();
+
+        IntStream.rangeClosed(1, 15)
+                .forEach(x -> members.add(
+                        new Member(
+                                LoginId.from("abcd2323" + x),
+                                Password.from("Abcd1234@!" + x),
+                                Nickname.from("nickname" + x),
+                                StudentNumber.from(2020110110 + x),
+                                "www.abc.kr"
+                        )
+                ));
+        return members;
     }
 }

@@ -1,8 +1,7 @@
-package cbnu.io.cbnuswalrami.test.acceptance.changeApproval;
+package cbnu.io.cbnuswalrami.test.acceptance.approval;
 
 import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
-import cbnu.io.cbnuswalrami.common.configuration.security.SecurityTestConfig;
 import cbnu.io.cbnuswalrami.test.helper.fixture.MemberFixture;
 import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
 import io.restassured.RestAssured;
@@ -12,7 +11,6 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
