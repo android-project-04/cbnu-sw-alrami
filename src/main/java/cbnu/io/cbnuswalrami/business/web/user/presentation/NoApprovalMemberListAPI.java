@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Nullable;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")
@@ -19,8 +21,7 @@ public class NoApprovalMemberListAPI {
     private final ApprovalCursorPagingService approvalCursorPagingService;
 
     @GetMapping("/no/approval/members")
-    public ResponseEntity<ApiResponse> findNoApprovalList(@RequestParam Long next, @RequestParam Long size) {
-        //TODO
+    public ResponseEntity<ApiResponse> findNoApprovalList(@RequestParam @Nullable Long next, @RequestParam @Nullable Long size) {
         CursorResult cursorResult = approvalCursorPagingService.findMemberDtosByCursor(Cursor.from(next, size));
         return ResponseEntity
                 .ok()

@@ -6,8 +6,7 @@
 
 [[resources-hello]]
 == 헬스 체크
-=== GET
-
+=== hello api
 ==== HTTP request
 include::{snippets}/hello/http-request.adoc[]
 
@@ -16,8 +15,8 @@ include::{snippets}/hello/http-request.adoc[]
 include::{snippets}/hello/response-body.adoc[]
 
 [[resources-member-post]]
-== 회원가입
-=== POST
+== Member
+=== 회원가입
 ==== HTTP request
 file은 multipart/form-data로 주세요.
 
@@ -29,14 +28,13 @@ request에 넣을 json 유저 정보
 
 include::{snippets}/users-post/request-part-request-fields.adoc[]
 
-
 ==== HTTP response
 include::{snippets}/users-post/http-response.adoc[]
 include::{snippets}/users-post/response-fields.adoc[]
 
 [[resources-login]]
-== 로그인
-=== POST
+// == Member
+=== 로그인
 ==== http request
 include::{snippets}/login/http-request.adoc[]
 include::{snippets}/login/request-fields.adoc[]
@@ -47,8 +45,8 @@ include::{snippets}/login/http-response.adoc[]
 include::{snippets}/login/response-headers.adoc[]
 
 [[resources-change-approval]]
-== 회원 승인
-=== PUT
+// == Member
+=== 회원 승인
 ==== http request
 ADMIN 권한으로 신청 가능
 
@@ -59,8 +57,8 @@ include::{snippets}/change-approval/http-request.adoc[]
 include::{snippets}/change-approval/response-fields.adoc[]
 
 [[resources-NoApprovalMembers]]
-== 비승인 회원 조회
-=== GET
+// == Member
+=== 비승인 회원 조회
 ==== http request
 ADMIN 권한으로 신청 가능
 
