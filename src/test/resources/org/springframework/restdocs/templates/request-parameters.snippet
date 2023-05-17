@@ -1,0 +1,19 @@
+// request-parameters.snippet
+
+|===
+|Parameter|Description|필수값
+
+{{#parameters}}
+|{{#tableCellContent}}`+{{name}}+`{{/tableCellContent}}
+|{{#tableCellContent}}{{description}}{{/tableCellContent}}
+|{{#tableCellContent}}
+ifeval::["{{optional}}"=="true"]
+`false`
+endif::[]
+ifeval::["{{optional}}"=="false"]
+`*true*`
+endif::[]
+{{/tableCellContent}}
+
+{{/parameters}}
+|===
