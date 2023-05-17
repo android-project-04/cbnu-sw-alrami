@@ -50,8 +50,23 @@ include::{snippets}/login/response-headers.adoc[]
 == 회원 승인
 === PUT
 ==== http request
+ADMIN 권한으로 신청 가능
+
 /api/admin/approval/{변경할 유저 아이디값}
 include::{snippets}/change-approval/http-request.adoc[]
 
 ==== http response
 include::{snippets}/change-approval/response-fields.adoc[]
+
+[[resources-NoApprovalMembers]]
+== 비승인 회원 조회
+=== GET
+==== http request
+ADMIN 권한으로 신청 가능
+
+include::{snippets}/NoApprovalMembers/http-request.adoc[]
+include::{snippets}/NoApprovalMembers/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/NoApprovalMembers/response-body.adoc[]
+include::{snippets}/NoApprovalMembers/response-fields.adoc[]
