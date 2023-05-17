@@ -66,7 +66,7 @@ public class SecurityConfig {
                                 "/api/member/signup",
                                 "/api/member/login"
                         ).permitAll()
-                        .antMatchers("/api/admin/approval/**").hasAuthority("ADMIN")
+                        .antMatchers("/api/admin/**").hasAuthority("ADMIN")
                 )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
