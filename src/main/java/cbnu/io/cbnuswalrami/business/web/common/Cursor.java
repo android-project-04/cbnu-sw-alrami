@@ -17,7 +17,7 @@ public class Cursor {
     }
 
     public static Cursor from(Long next, Long size) {
-        size = size == null ? DEFAULT_SIZE : size;
+        size = size == null || size <= 1 ? DEFAULT_SIZE : size;
         validate(next);
         return new Cursor(next, size);
     }

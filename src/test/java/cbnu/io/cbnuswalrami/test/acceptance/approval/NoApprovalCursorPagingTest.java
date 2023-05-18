@@ -69,7 +69,7 @@ public class NoApprovalCursorPagingTest extends DatabaseTestBase {
         // given
         signupFixture.signup15NonApprovalMembers();
 
-        ValidatableResponse all = given(documentationSpec)
+        given(documentationSpec)
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
                 .param("size", 10L)
