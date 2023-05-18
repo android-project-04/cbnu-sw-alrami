@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -11,6 +11,24 @@ spring:
     open-in-view: false
     show-sql: true
   redis:
-    connect-timeout: 3000
-    host: 127.0.0.1
     port: 6379
+    host: 127.0.0.1
+    connect-timeout: 3000
+
+cloud:
+  aws:
+    s3:
+      bucket: TEST
+    credentials:
+      access-key: TEST
+      secret-key: TEST
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+jwt:
+  header: Authorization
+  secret: Tm92YUhvbWVQYWdlc2FkZmFzZGZhc2RmYXNkZnNhZGY=
+  access-token-valid-in-seconds: 6000 # 10 min
+

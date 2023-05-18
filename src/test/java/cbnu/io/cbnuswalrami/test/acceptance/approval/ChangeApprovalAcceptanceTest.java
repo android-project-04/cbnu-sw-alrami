@@ -1,6 +1,6 @@
 package cbnu.io.cbnuswalrami.test.acceptance.approval;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.test.helper.fixture.MemberFixture;
 import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;

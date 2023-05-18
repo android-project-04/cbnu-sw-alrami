@@ -1,10 +1,10 @@
 package cbnu.io.cbnuswalrami.test.helper.fixture;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
-import cbnu.io.cbnuswalrami.business.core.domon.user.infrastructure.command.MemberJpaRepository;
-import cbnu.io.cbnuswalrami.business.web.user.application.ApprovalChangeCommand;
-import cbnu.io.cbnuswalrami.business.web.user.application.SignupCommand;
-import cbnu.io.cbnuswalrami.business.web.user.presentation.request.SignupRequest;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.member.infrastructure.command.MemberJpaRepository;
+import cbnu.io.cbnuswalrami.business.web.member.application.ApprovalChangeCommand;
+import cbnu.io.cbnuswalrami.business.web.member.application.SignupCommand;
+import cbnu.io.cbnuswalrami.business.web.member.presentation.request.SignupRequest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Component;

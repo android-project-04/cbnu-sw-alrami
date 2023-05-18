@@ -1,10 +1,10 @@
 package cbnu.io.cbnuswalrami.test.integration.signup;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.Role;
-import cbnu.io.cbnuswalrami.business.core.domon.user.infrastructure.command.MemberJpaRepository;
-import cbnu.io.cbnuswalrami.business.web.user.application.SignupCommand;
-import cbnu.io.cbnuswalrami.business.web.user.presentation.request.SignupRequest;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.values.Role;
+import cbnu.io.cbnuswalrami.business.core.domon.member.infrastructure.command.MemberJpaRepository;
+import cbnu.io.cbnuswalrami.business.web.member.application.SignupCommand;
+import cbnu.io.cbnuswalrami.business.web.member.presentation.request.SignupRequest;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.common.exception.common.CbnuException;
 import cbnu.io.cbnuswalrami.test.helper.fixture.MemberFixture;

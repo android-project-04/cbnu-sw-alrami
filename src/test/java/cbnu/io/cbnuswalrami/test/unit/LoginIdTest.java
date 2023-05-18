@@ -1,6 +1,6 @@
 package cbnu.io.cbnuswalrami.test.unit;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.LoginId;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.values.LoginId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
