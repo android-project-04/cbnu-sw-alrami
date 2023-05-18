@@ -5,6 +5,8 @@ import cbnu.io.cbnuswalrami.business.web.common.Cursor;
 import cbnu.io.cbnuswalrami.business.web.common.CursorResult;
 import cbnu.io.cbnuswalrami.business.web.notification.presentation.response.NotificationDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,9 @@ public class NotificationCursorPagingService {
 
     @Transactional
     public CursorResult findNotificationDtoByCursor(Cursor cursor) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        Object principal = authentication.getPrincipal();
         List<NotificationDto> notificationDtos = getNotifications(cursor);
         Long lastIndex = notificationDtos.isEmpty() ? 0 : notificationDtos.get(notificationDtos.size() - 1).getId();
         Boolean hasNext = hasNext(lastIndex);
