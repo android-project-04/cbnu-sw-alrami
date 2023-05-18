@@ -83,6 +83,7 @@ erDiagram
         date last_modified_at
         int student_number
         string user_fixture_url
+        string approval
         string role
         boolean is_deleted
     }
