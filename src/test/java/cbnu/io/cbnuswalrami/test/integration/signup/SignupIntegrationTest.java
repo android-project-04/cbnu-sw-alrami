@@ -7,7 +7,7 @@ import cbnu.io.cbnuswalrami.business.web.member.application.SignupCommand;
 import cbnu.io.cbnuswalrami.business.web.member.presentation.request.SignupRequest;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.common.exception.common.CbnuException;
-import cbnu.io.cbnuswalrami.test.helper.fixture.MemberFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.member.MemberFixture;
 import cbnu.io.cbnuswalrami.test.helper.fake.s3.S3Configuration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

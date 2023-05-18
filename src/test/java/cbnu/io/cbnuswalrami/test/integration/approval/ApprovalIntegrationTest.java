@@ -4,7 +4,7 @@ import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.core.domon.member.infrastructure.command.MemberJpaRepository;
 import cbnu.io.cbnuswalrami.business.web.member.application.ApprovalChangeCommand;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
-import cbnu.io.cbnuswalrami.test.helper.fixture.MemberFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.member.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

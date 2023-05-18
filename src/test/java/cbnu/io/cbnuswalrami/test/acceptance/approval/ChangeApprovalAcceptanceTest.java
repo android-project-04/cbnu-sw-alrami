@@ -2,8 +2,8 @@ package cbnu.io.cbnuswalrami.test.acceptance.approval;
 
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
-import cbnu.io.cbnuswalrami.test.helper.fixture.MemberFixture;
-import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.member.MemberFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.member.SignupFixture;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
