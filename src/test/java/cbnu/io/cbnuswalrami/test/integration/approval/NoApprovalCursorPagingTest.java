@@ -1,9 +1,9 @@
 package cbnu.io.cbnuswalrami.test.integration.approval;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.common.Cursor;
 import cbnu.io.cbnuswalrami.business.web.common.CursorResult;
-import cbnu.io.cbnuswalrami.business.web.user.application.service.paging.ApprovalCursorPagingService;
+import cbnu.io.cbnuswalrami.business.web.member.application.service.paging.ApprovalCursorPagingService;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
 import org.junit.jupiter.api.DisplayName;

@@ -1,7 +1,7 @@
 package cbnu.io.cbnuswalrami.common.configuration.security;
 
 import cbnu.io.cbnuswalrami.business.common.filter.SecurityFilter;
-import cbnu.io.cbnuswalrami.business.core.domon.user.infrastructure.command.MemberJpaRepository;
+import cbnu.io.cbnuswalrami.business.core.domon.member.infrastructure.command.MemberJpaRepository;
 import cbnu.io.cbnuswalrami.business.web.redis.RedisSessionService;
 import cbnu.io.cbnuswalrami.common.configuration.security.filter.JwtAccessDeniedHandler;
 import cbnu.io.cbnuswalrami.common.configuration.security.filter.JwtAuthenticationEntryFilter;
@@ -14,7 +14,6 @@ import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.access.vote.RoleHierarchyVoter;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;

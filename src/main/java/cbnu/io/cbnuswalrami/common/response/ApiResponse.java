@@ -1,5 +1,6 @@
 package cbnu.io.cbnuswalrami.common.response;
 
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;

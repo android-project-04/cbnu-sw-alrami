@@ -1,7 +1,7 @@
 package cbnu.io.cbnuswalrami.test.helper.fixture;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.*;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.values.*;
 
 import java.util.ArrayList;
 import java.util.List;

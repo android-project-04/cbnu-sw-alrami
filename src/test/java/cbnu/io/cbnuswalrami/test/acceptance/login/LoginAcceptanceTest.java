@@ -1,7 +1,7 @@
 package cbnu.io.cbnuswalrami.test.acceptance.login;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
-import cbnu.io.cbnuswalrami.business.web.user.application.ApprovalChangeCommand;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.web.member.application.ApprovalChangeCommand;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
 import com.google.gson.JsonObject;

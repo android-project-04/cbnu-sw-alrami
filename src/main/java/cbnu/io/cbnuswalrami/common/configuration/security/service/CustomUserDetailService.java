@@ -1,8 +1,8 @@
 package cbnu.io.cbnuswalrami.common.configuration.security.service;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.LoginId;
-import cbnu.io.cbnuswalrami.business.core.domon.user.infrastructure.command.MemberJpaRepository;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.values.LoginId;
+import cbnu.io.cbnuswalrami.business.core.domon.member.infrastructure.command.MemberJpaRepository;
 import cbnu.io.cbnuswalrami.business.core.error.CommonTypeException;
 import cbnu.io.cbnuswalrami.common.configuration.security.AccountAdapter;
 import cbnu.io.cbnuswalrami.common.exception.common.CbnuException;

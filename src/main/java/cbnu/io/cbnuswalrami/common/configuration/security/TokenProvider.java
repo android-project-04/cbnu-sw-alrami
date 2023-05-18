@@ -1,8 +1,8 @@
 package cbnu.io.cbnuswalrami.common.configuration.security;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.values.Role;
-import cbnu.io.cbnuswalrami.business.core.domon.user.infrastructure.command.MemberJpaRepository;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.values.Role;
+import cbnu.io.cbnuswalrami.business.core.domon.member.infrastructure.command.MemberJpaRepository;
 import cbnu.io.cbnuswalrami.business.core.error.CommonTypeException;
 import cbnu.io.cbnuswalrami.common.exception.common.CbnuException;
 import io.jsonwebtoken.*;
@@ -15,7 +15,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.*;

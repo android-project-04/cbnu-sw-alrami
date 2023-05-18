@@ -1,9 +1,9 @@
 package cbnu.io.cbnuswalrami.test.integration.login;
 
-import cbnu.io.cbnuswalrami.business.core.domon.user.entity.Member;
-import cbnu.io.cbnuswalrami.business.web.user.application.LoginCommand;
-import cbnu.io.cbnuswalrami.business.web.user.presentation.request.LoginRequest;
-import cbnu.io.cbnuswalrami.business.web.user.presentation.response.Token;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.web.member.application.LoginCommand;
+import cbnu.io.cbnuswalrami.business.web.member.presentation.request.LoginRequest;
+import cbnu.io.cbnuswalrami.business.web.member.presentation.response.Token;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.common.exception.common.CbnuException;
 import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
