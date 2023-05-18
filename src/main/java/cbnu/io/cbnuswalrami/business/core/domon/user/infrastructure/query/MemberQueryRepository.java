@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted.*;
 import static cbnu.io.cbnuswalrami.business.core.domon.user.entity.QMember.*;
 
 
@@ -29,7 +30,7 @@ public class MemberQueryRepository {
                 .from(member)
                 .where(member.loginId.eq(loginId)
                         .and(member.approval.eq(Approval.OK)
-                                .and(member.isDeleted.eq(Deleted.FALSE))))
+                                .and(member.isDeleted.eq(FALSE))))
                 .fetchOne();
         return Optional.ofNullable(user);
     }
@@ -37,7 +38,7 @@ public class MemberQueryRepository {
     public List<MemberDto> findMemberDtosByCursor(Long size) {
         return queryFactory.select(new QMemberDto(member.id, member.nickname.nickname, member.studentNumber.studentNumber))
                 .from(member)
-                .where(member.approval.eq(Approval.NO))
+                .where(member.approval.eq(Approval.NO).and(member.isDeleted.eq(FALSE)))
                 .limit(size)
                 .orderBy(member.id.desc())
                 .fetch();
@@ -46,7 +47,7 @@ public class MemberQueryRepository {
     public List<MemberDto> findMemberDtosByCursor(Long size, Long next) {
         return queryFactory.select(new QMemberDto(member.id, member.nickname.nickname, member.studentNumber.studentNumber))
                 .from(member)
-                .where(member.approval.eq(Approval.NO).and(member.id.lt(next)))
+                .where(member.approval.eq(Approval.NO).and(member.id.lt(next)).and(member.isDeleted.eq(FALSE)))
                 .limit(size)
                 .orderBy(member.id.desc())
                 .fetch();
@@ -55,7 +56,7 @@ public class MemberQueryRepository {
     public Boolean existMemberById(Long id) {
         List<Member> fetch = queryFactory.select(member)
                 .from(member)
-                .where(member.id.lt(id))
+                .where(member.id.lt(id).and(member.isDeleted.eq(FALSE)))
                 .limit(1L)
                 .fetch();
         return fetch.size() > 0;
