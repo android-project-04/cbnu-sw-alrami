@@ -78,7 +78,8 @@ public class SecurityFilter extends GenericFilterBean {
         httpServletResponse.setHeader(AUTHORIZATION_HEADER, token);
         httpServletResponse.setHeader(AUTHORITY, authenticate.getAuthorities().toString());
         redisSessionService.deleteSession(usersId, sessionId);
-        redisSessionService.save(usersId);
+        String savedSession = redisSessionService.save(usersId);
+        httpServletResponse.setHeader(SESSION_ID, savedSession);
     }
 
     private String resolveToken(HttpServletRequest request) {
