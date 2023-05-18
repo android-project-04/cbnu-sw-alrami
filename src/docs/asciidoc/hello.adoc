@@ -33,7 +33,6 @@ include::{snippets}/users-post/http-response.adoc[]
 include::{snippets}/users-post/response-fields.adoc[]
 
 [[resources-login]]
-// == Member
 === 로그인
 ==== http request
 include::{snippets}/login/http-request.adoc[]
@@ -45,7 +44,6 @@ include::{snippets}/login/http-response.adoc[]
 include::{snippets}/login/response-headers.adoc[]
 
 [[resources-change-approval]]
-// == Member
 === 회원 승인
 ==== http request
 ADMIN 권한으로 신청 가능
@@ -57,7 +55,6 @@ include::{snippets}/change-approval/http-request.adoc[]
 include::{snippets}/change-approval/response-fields.adoc[]
 
 [[resources-NoApprovalMembers]]
-// == Member
 === 비승인 회원 조회
 ==== http request
 ADMIN 권한으로 신청 가능
@@ -68,3 +65,15 @@ include::{snippets}/NoApprovalMembers/request-parameters.adoc[]
 ==== http response
 include::{snippets}/NoApprovalMembers/response-body.adoc[]
 include::{snippets}/NoApprovalMembers/response-fields.adoc[]
+
+
+== Notification
+
+=== 공지 커서 기반 조회
+==== http request
+include::{snippets}/get-notifications/http-request.adoc[]
+include::{snippets}/get-notifications/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/get-notifications/response-body.adoc[]
+include::{snippets}/get-notifications/response-fields.adoc[]
