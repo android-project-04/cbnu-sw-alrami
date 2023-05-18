@@ -25,14 +25,14 @@ public class LoginIntegrationTest extends DatabaseTestBase {
     private SignupFixture signupFixture;
 
 
-    @DisplayName("로그인하면 access token과 refetsh toekn을 준다.")
+    @DisplayName("로그인하면 access token과 refetsh token을 준다.")
     @Test
     public void given_valid_login_info_when_login_then_ok() {
         // given
         String loginId = "abcd1234";
         String password = "Abcd1234@!";
         String nickname = "히어로123";
-        Member member = signupFixture.signupMember(loginId, password, nickname);
+        signupFixture.signupMember(loginId, password, nickname);
         LoginRequest loginRequest = new LoginRequest(
                 loginId,
                 password
@@ -58,7 +58,6 @@ public class LoginIntegrationTest extends DatabaseTestBase {
                 loginId,
                 "password@!"
         );
-
 
         // then
         CbnuException cbnuException = assertThrows(CbnuException.class, () -> loginCommand.login(loginRequest));
