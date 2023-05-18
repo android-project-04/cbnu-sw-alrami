@@ -6,6 +6,7 @@ import cbnu.io.cbnuswalrami.business.web.common.CursorResult;
 import cbnu.io.cbnuswalrami.business.web.member.presentation.response.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class ApprovalCursorPagingService {
 
     private final MemberQueryRepository memberQueryRepository;
 
+    @Transactional
     public CursorResult findMemberDtosByCursor(Cursor cursor) {
 
         List<MemberDto> memberDtos = getMemberDtos(cursor);
