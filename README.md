@@ -61,6 +61,77 @@ mindmap
       (찜하기 취소)
 ```
 
+<br/>
+
+## ERD
+
+``` mermaid
+erDiagram
+    MEMBER ||--|| STOP_MEMBER : make
+    MEMBER ||--o{ NOTIFICATION_BOOKMARK : make
+    NOTIFICATION ||--o{ NOTIFICATION_BOOKMARK : make
+    MEMBER ||--o{ BOARD : make
+    MEMBER ||--o{ BOARD_BOOKMARK : make
+    BOARD ||--|| BOARD_COUNT : count
+
+    MEMBER {
+        int member_id PK
+        string login_id
+        string password
+        string nickname
+        date created_at
+        date last_modified_at
+        int student_number
+        string user_fixture_url
+        string role
+        boolean is_deleted
+    }
+
+    STOP_MEMBER {
+        int stop_member_id PK
+        int member_id FK
+        date created_at
+        date last_stop_day
+    }
+
+    NOTIFICATION_BOOKMARK {
+        int notification_bookmark_id PK
+        int member_id FK
+        int notification_id FK
+        date created_at
+    }
+
+    NOTIFICATION {
+        int notification_id PK
+        string title
+        string url
+        date created_at
+        date last_modified_at
+    }
+
+    BOARD_BOOKMARK {
+        int board_bookmark_id PK
+        int member_id FK
+        int board_id FK
+        date created_at
+    }
+
+    BOARD {
+        int board_id PK
+        int member_id FK
+        string title 
+        string image_url
+        string description
+        boolean is_deleted
+    }
+
+    BOARD_COUNT {
+        int board_count_id PK
+        int board_id FK
+        int board_count
+    }
+```
+
 
 <br/>
 
