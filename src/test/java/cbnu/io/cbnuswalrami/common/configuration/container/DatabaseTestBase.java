@@ -24,7 +24,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 @Testcontainers
-@Slf4j
 @ContextConfiguration(initializers = DatabaseTestBase.DataSourceInitializer.class)
 @IntegrationTest
 public abstract class DatabaseTestBase {
@@ -72,13 +71,14 @@ public abstract class DatabaseTestBase {
 
     @BeforeEach
     void cleanDB() {
-        log.info("========db clean start========");
         databaseCleanup.execute();
         redisInitialization.init();
 
-        log.info("========Security Context Setting ========");
-        MemberFixture.createMember();
-        Member member = signupFixture.signupMember(MemberFixture.createMember());
+        Member member = signupFixture.signupMember(
+                "Clean123",
+                "Clean1234@!",
+                "다꾸라"
+        );
         Authentication authentication = tokenProvider.authenticate(member.getId());
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(authentication);

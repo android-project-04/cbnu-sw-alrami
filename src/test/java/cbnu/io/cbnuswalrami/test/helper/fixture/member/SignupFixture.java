@@ -19,6 +19,8 @@ public class SignupFixture {
 
     private final MemberJpaRepository memberJpaRepository;
 
+    private Integer studentNumber = 2020110110;
+
     public SignupFixture(
             SignupCommand signupCommand,
             ApprovalChangeCommand approvalChangeCommand,
@@ -34,7 +36,7 @@ public class SignupFixture {
                 loginId,
                 password,
                 nickname,
-                2020110110
+                ++studentNumber
         );
         MultipartFile multipartFile = new MockMultipartFile(
                 "file",
