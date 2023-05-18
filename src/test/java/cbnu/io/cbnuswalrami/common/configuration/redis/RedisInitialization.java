@@ -27,7 +27,6 @@ public class RedisInitialization {
     private StringRedisTemplate stringRedisTemplate;
 
     public void init() {
-        System.out.println("[====================redis init====================]");
         initRedisStringTemplate();
     }
 

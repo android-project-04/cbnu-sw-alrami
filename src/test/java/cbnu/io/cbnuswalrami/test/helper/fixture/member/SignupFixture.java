@@ -47,6 +47,24 @@ public class SignupFixture {
         return signupMember;
     }
 
+    public Member signupMember(Member member) {
+        SignupRequest signupRequest = new SignupRequest(
+                member.getLoginId().getLoginId(),
+                "Abcd1234!@",
+                member.getNickname().getNickname(),
+                2020110110
+        );
+        MultipartFile multipartFile = new MockMultipartFile(
+                "file",
+                "hello.jpeg",
+                MediaType.IMAGE_JPEG_VALUE,
+                "Hello, World".getBytes()
+        );
+        Member signupMember = signupCommand.signup(signupRequest, multipartFile);
+        approvalChangeCommand.changeApproval(signupMember.getId());
+        return signupMember;
+    }
+
     public Member signupNonApprovalMember(String loginId, String password, String nickname) {
         SignupRequest signupRequest = new SignupRequest(
                 loginId,
