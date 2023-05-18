@@ -53,7 +53,7 @@ public class MemberQueryRepository {
     }
 
     public Boolean existMemberById(Long id) {
-        List<Member> fetch = queryFactory.select(member)
+        List<Long> fetch = queryFactory.select(member.id)
                 .from(member)
                 .where(member.id.lt(id).and(member.isDeleted.eq(FALSE)))
                 .limit(1L)
