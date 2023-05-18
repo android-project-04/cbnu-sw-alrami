@@ -25,6 +25,6 @@ public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(RuntimeException.class)
     public ErrorResponse catchRuntimeException(IllegalArgumentException exception) {
         log.info("RuntimException: {}", exception.getMessage());
-        return ErrorResponse.of(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 }
