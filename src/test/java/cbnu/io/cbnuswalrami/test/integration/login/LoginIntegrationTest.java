@@ -6,7 +6,7 @@ import cbnu.io.cbnuswalrami.business.web.member.presentation.request.LoginReques
 import cbnu.io.cbnuswalrami.business.web.member.presentation.response.Token;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.common.exception.common.CbnuException;
-import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.member.SignupFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

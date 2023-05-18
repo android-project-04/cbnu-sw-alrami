@@ -1,13 +1,11 @@
 package cbnu.io.cbnuswalrami.test.acceptance.approval;
 
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
-import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.member.SignupFixture;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
-import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

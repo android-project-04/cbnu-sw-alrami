@@ -1,4 +1,4 @@
-package cbnu.io.cbnuswalrami.test.helper.fixture;
+package cbnu.io.cbnuswalrami.test.helper.fixture.member;
 
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.values.*;

@@ -3,7 +3,7 @@ package cbnu.io.cbnuswalrami.test.acceptance.login;
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.member.application.ApprovalChangeCommand;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
-import cbnu.io.cbnuswalrami.test.helper.fixture.SignupFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.member.SignupFixture;
 import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
