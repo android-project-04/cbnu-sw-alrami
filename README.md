@@ -110,15 +110,15 @@ erDiagram
         date last_modified_at
     }
 
-    BOARD_BOOKMARK {
-        int board_bookmark_id PK
+    COMMUNITY_BOOKMARK {
+        int community_bookmark_id PK
         int member_id FK
-        int board_id FK
+        int community_id FK
         date created_at
     }
 
-    BOARD {
-        int board_id PK
+    COMMUNITY {
+        int community_id PK
         int member_id FK
         string title 
         string image_url
@@ -126,10 +126,10 @@ erDiagram
         boolean is_deleted
     }
 
-    BOARD_COUNT {
-        int board_count_id PK
-        int board_id FK
-        int board_count
+    COMMUNITY_COUNT {
+        int community_count_id PK
+        int community_id FK
+        int count
     }
 ```
 
