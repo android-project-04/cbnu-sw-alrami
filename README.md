@@ -70,9 +70,9 @@ erDiagram
     MEMBER ||--|| STOP_MEMBER : make
     MEMBER ||--o{ NOTIFICATION_BOOKMARK : make
     NOTIFICATION ||--o{ NOTIFICATION_BOOKMARK : make
-    MEMBER ||--o{ BOARD : make
-    MEMBER ||--o{ BOARD_BOOKMARK : make
-    BOARD ||--|| BOARD_COUNT : count
+    MEMBER ||--o{ COMMUNITY : make
+    MEMBER ||--o{ COMMUNITY_BOOKMARK : make
+    BOARD ||--|| COMMUNITY_COUNT : count
 
     MEMBER {
         int member_id PK
