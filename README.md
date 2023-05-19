@@ -72,7 +72,7 @@ erDiagram
     NOTIFICATION ||--o{ NOTIFICATION_BOOKMARK : make
     MEMBER ||--o{ COMMUNITY : make
     MEMBER ||--o{ COMMUNITY_BOOKMARK : make
-    BOARD ||--|| COMMUNITY_COUNT : count
+    COMMUNITY ||--|| COMMUNITY_COUNT : count
 
     MEMBER {
         int member_id PK
