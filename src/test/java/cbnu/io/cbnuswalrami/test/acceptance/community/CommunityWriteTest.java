@@ -1,32 +1,18 @@
 package cbnu.io.cbnuswalrami.test.acceptance.community;
 
-import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
+import cbnu.io.cbnuswalrami.common.configuration.container.AcceptanceTestBase;
 import cbnu.io.cbnuswalrami.common.configuration.security.TokenProvider;
 import com.google.gson.JsonObject;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestPartFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.RequestPartsSnippet;
-import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static cbnu.io.cbnuswalrami.test.helper.util.ApiDocumentUtils.getDocumentRequest;
-import static cbnu.io.cbnuswalrami.test.helper.util.ApiDocumentUtils.getDocumentResponse;
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -35,36 +21,10 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
 @DisplayName("커뮤니티에 글쓰기 인수 테스트")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ExtendWith({RestDocumentationExtension.class})
-public class CommunityWriteTest extends DatabaseTestBase {
-
-    public static final String BASE_URL = "http://localhost";
-
-    @LocalServerPort
-    private int port = 8080;
+public class CommunityWriteTest extends AcceptanceTestBase {
 
     @Autowired
     private TokenProvider tokenProvider;
-
-
-    private RequestSpecification documentationSpec = new RequestSpecBuilder()
-            .setPort(port)
-            .setBaseUri(BASE_URL)
-            .build();
-
-    @BeforeAll
-    public void configureRestAssured() {
-        RestAssured.port = port;
-        baseURI = BASE_URL;
-    }
-
-    @BeforeEach
-    public void setUpRestDocs(RestDocumentationContextProvider restDocumentation) {
-        this.documentationSpec = new RequestSpecBuilder()
-                .addFilter(RestAssuredRestDocumentation.documentationConfiguration(restDocumentation))
-                .build();
-    }
 
     @DisplayName("커뮤니티 글쓰기 API 테스트")
     @Test
@@ -83,8 +43,6 @@ public class CommunityWriteTest extends DatabaseTestBase {
                 .contentType(MULTIPART_FORM_DATA_VALUE)
                 .filter(document(
                         "community-post",
-                        getDocumentRequest(),
-                        getDocumentResponse(),
                         getRequestPartsSnippet(),
                         getRequestPartFieldsSnippet(),
                         getResponseFieldsSnippet()

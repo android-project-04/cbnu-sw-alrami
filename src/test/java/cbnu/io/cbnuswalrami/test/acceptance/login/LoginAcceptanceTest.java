@@ -2,30 +2,19 @@ package cbnu.io.cbnuswalrami.test.acceptance.login;
 
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.member.application.ApprovalChangeCommand;
-import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
+import cbnu.io.cbnuswalrami.common.configuration.container.AcceptanceTestBase;
 import cbnu.io.cbnuswalrami.test.helper.fixture.member.SignupFixture;
 import com.google.gson.JsonObject;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.headers.ResponseHeadersSnippet;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
-import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static cbnu.io.cbnuswalrami.business.common.filter.SecurityFilter.*;
-import static cbnu.io.cbnuswalrami.test.helper.util.ApiDocumentUtils.*;
 import static io.restassured.RestAssured.*;
-import static io.restassured.RestAssured.baseURI;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -33,39 +22,13 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
 @DisplayName("로그인 기능 인수 테스트")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-public class LoginAcceptanceTest extends DatabaseTestBase {
-
-    public static final String BASE_URL = "http://localhost";
-    @LocalServerPort
-    private int port = 8080;
+public class LoginAcceptanceTest extends AcceptanceTestBase {
 
     @Autowired
     private SignupFixture signupFixture;
 
     @Autowired
     private ApprovalChangeCommand approvalChangeCommand;
-
-    private RequestSpecification documentationSpec = new RequestSpecBuilder()
-            .setPort(port)
-            .setBaseUri(BASE_URL)
-            .build();
-
-    @BeforeAll
-    public void configureRestAssured() {
-        RestAssured.port = port;
-        baseURI = BASE_URL;
-    }
-
-
-    @BeforeEach
-    public void setUpRestDocs(RestDocumentationContextProvider restDocumentation) {
-        this.documentationSpec = new RequestSpecBuilder()
-                .addFilter(RestAssuredRestDocumentation.documentationConfiguration(restDocumentation))
-                .build();
-    }
-
 
     @DisplayName("로그인 API 테스트")
     @Test
@@ -88,8 +51,6 @@ public class LoginAcceptanceTest extends DatabaseTestBase {
                 .body(jsonObject.toString())
                 .filter(document(
                         "login",
-                        getDocumentRequest(),
-                        getDocumentResponse(),
                         getRequestFieldsSnippet(),
                         getResponseHeadersSnippet()
                 ))
