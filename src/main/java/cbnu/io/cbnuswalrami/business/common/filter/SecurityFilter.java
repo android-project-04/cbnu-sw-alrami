@@ -48,13 +48,18 @@ public class SecurityFilter extends GenericFilterBean {
             // 토큰에서 유저네임, 권한을 뽑아 스프링 시큐리티 유저를 만들어 Authentication 반환
             createAuthFromAccessToken(httpServletResponse, jwt, requestURI);
             chain.doFilter(request, response);
+            return;
         }
 
         //유효성 검증 refresh token으로 검증
-        if (sessionId != null && redisSessionService.getMemberId(sessionId) != null) {
+        if (!tokenProvider.validateToken(jwt) &&
+                sessionId != null &&
+                redisSessionService.getMemberId(sessionId) != null
+        ) {
             log.info("refresh toekn 검증 시작");
             createAuthFromRefreshToken(httpServletResponse, sessionId);
             chain.doFilter(request, response);
+            return;
         }
 
 
