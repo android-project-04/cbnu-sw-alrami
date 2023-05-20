@@ -19,7 +19,7 @@ public class SecurityTestConfig {
     @Primary
     public SecurityFilterChain testFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.httpBasic().disable();
+        http.httpBasic();
         http.formLogin().disable();
         http.authorizeRequests(auth -> auth
                         .antMatchers("/api/member/approval").permitAll()

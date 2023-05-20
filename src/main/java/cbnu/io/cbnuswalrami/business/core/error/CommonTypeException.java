@@ -12,7 +12,8 @@ public enum CommonTypeException implements BaseException {
     REDIS_WRONG_TYPE_DATASTRUCTURE_EXCEPTION(502, "올바르지 않은 키를 입력했습니다.", HttpStatus.BAD_GATEWAY),
     NOT_FOUNT_USER(400, "존재하지 않는 id의 유저입니다.", HttpStatus.BAD_REQUEST),
     INVALID_PASSWORD(400, "패스워드가 일치하지 않습니다.", HttpStatus.BAD_REQUEST),
-    REDIS_CONNECTION_FAILURE_EXCEPTION(502, "서버에 문제가 발생했습니다.", HttpStatus.BAD_GATEWAY);
+    REDIS_CONNECTION_FAILURE_EXCEPTION(502, "서버에 문제가 발생했습니다.", HttpStatus.BAD_GATEWAY),
+    INVALID_LOGIN_ID(400, "해당 로그인 아이디의 유저가 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
 
 
     private final int code;

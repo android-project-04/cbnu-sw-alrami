@@ -23,13 +23,11 @@ import static cbnu.io.cbnuswalrami.business.core.error.CommonTypeException.*;
 public class SignupService implements SignupCommand {
 
     private final MemberJpaRepository memberJpaRepository;
-    private final PasswordEncoder passwordEncoder;
 
     private final S3Command s3Command;
 
-    public SignupService(MemberJpaRepository memberJpaRepository, PasswordEncoder passwordEncoder, S3Command s3Command) {
+    public SignupService(MemberJpaRepository memberJpaRepository, S3Command s3Command) {
         this.memberJpaRepository = memberJpaRepository;
-        this.passwordEncoder = passwordEncoder;
         this.s3Command = s3Command;
     }
 

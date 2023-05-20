@@ -57,6 +57,7 @@ public class S3Service implements S3Command {
         } catch (SdkClientException e) {
             throw new IllegalArgumentException("S3 Sdk 예외입니다.");
         } catch (IOException e) {
+            log.error("[AWS IO EX] : {}" ,e.getMessage());
             throw new RuntimeException("AWS IO 예외입니다.");
         }
 
