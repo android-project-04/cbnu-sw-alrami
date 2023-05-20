@@ -28,7 +28,7 @@ public class CommunityWriteTest extends AcceptanceTestBase {
 
     @DisplayName("커뮤니티 글쓰기 API 테스트")
     @Test
-    public void given_when_then() {
+    public void given_write_community_when_write_then_community() {
         // given
         byte[] fileByte = "Hello, World".getBytes();
 
