@@ -16,9 +16,9 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class MemberFindUtil {
 
     private final MemberJpaRepository memberJpaRepository;
@@ -28,7 +28,6 @@ public class MemberFindUtil {
 
     public Member findMemberByAuthentication() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         log.info("MemberFindUtil username: {}", username);
         return memberJpaRepository.findByLoginId(LoginId.from(username))
                 .orElseThrow(() -> CbnuException.of(CommonTypeException.INVALID_LOGIN_ID));

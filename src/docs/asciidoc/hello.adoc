@@ -93,3 +93,13 @@ include::{snippets}/community-post/request-part-requestCommunity-fields.adoc[]
 ==== http response
 include::{snippets}/community-post/response-body.adoc[]
 include::{snippets}/community-post/response-fields.adoc[]
+
+
+=== 커뮤니티 페이징 조회
+==== http request
+include::{snippets}/community-paging-get/curl-request.adoc[]
+include::{snippets}/community-paging-get/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/community-paging-get/http-response.adoc[]
+include::{snippets}/community-paging-get/response-fields.adoc[]
