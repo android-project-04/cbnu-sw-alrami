@@ -77,3 +77,19 @@ include::{snippets}/get-notifications/request-parameters.adoc[]
 ==== http response
 include::{snippets}/get-notifications/response-body.adoc[]
 include::{snippets}/get-notifications/response-fields.adoc[]
+
+
+== Community
+
+=== 커뮤니티에 글 쓰기
+==== http request
+include::{snippets}/community-post/curl-request.adoc[]
+
+include::{snippets}/community-post/request-parts.adoc[]
+
+requestCommunity에 넣을 값
+include::{snippets}/community-post/request-part-requestCommunity-fields.adoc[]
+
+==== http response
+include::{snippets}/community-post/response-body.adoc[]
+include::{snippets}/community-post/response-fields.adoc[]
