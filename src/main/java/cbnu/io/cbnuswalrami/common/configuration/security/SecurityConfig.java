@@ -9,6 +9,7 @@ import cbnu.io.cbnuswalrami.common.configuration.security.metadatasource.FilterI
 import cbnu.io.cbnuswalrami.common.configuration.security.service.CustomUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
@@ -29,6 +30,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.HttpMethod.*;
 
 @EnableWebSecurity
 @Configuration
@@ -66,6 +69,7 @@ public class SecurityConfig {
                                 "/api/member/login"
                         ).permitAll()
                         .antMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        .antMatchers(POST, "/api/community/**").hasAnyAuthority("NORMAL")
                 )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

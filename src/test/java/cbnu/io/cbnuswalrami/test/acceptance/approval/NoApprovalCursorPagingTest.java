@@ -1,26 +1,15 @@
 package cbnu.io.cbnuswalrami.test.acceptance.approval;
 
-import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
+import cbnu.io.cbnuswalrami.common.configuration.container.AcceptanceTestBase;
 import cbnu.io.cbnuswalrami.test.helper.fixture.member.SignupFixture;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
-import org.springframework.restdocs.restassured3.RestAssuredRestDocumentation;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static cbnu.io.cbnuswalrami.test.helper.util.ApiDocumentUtils.*;
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -29,37 +18,10 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
 @DisplayName("비승인 유저 커서 페이징 인수 테스트")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-public class NoApprovalCursorPagingTest extends DatabaseTestBase {
-
-    public static final String BASE_URL = "http://localhost";
-
-    @LocalServerPort
-    private int port = 8080;
+public class NoApprovalCursorPagingTest extends AcceptanceTestBase {
 
     @Autowired
     private SignupFixture signupFixture;
-
-
-    private RequestSpecification documentationSpec = new RequestSpecBuilder()
-            .setPort(port)
-            .setBaseUri(BASE_URL)
-            .build();
-
-    @BeforeAll
-    public void configureRestAssured() {
-        RestAssured.port = port;
-        baseURI = BASE_URL;
-    }
-
-
-    @BeforeEach
-    public void setUpRestDocs(RestDocumentationContextProvider restDocumentation) {
-        this.documentationSpec = new RequestSpecBuilder()
-                .addFilter(RestAssuredRestDocumentation.documentationConfiguration(restDocumentation))
-                .build();
-    }
 
     @DisplayName("비승인 유저들을 커서 페이징으로 조회")
     @Test
@@ -75,8 +37,6 @@ public class NoApprovalCursorPagingTest extends DatabaseTestBase {
                 .filter(
                         document(
                                 "NoApprovalMembers",
-                                getDocumentRequest(),
-                                getDocumentResponse(),
                                 getRequestParametersSnippet(),
                                 getResponseFieldsSnippet()
                         )
