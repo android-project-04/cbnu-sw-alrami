@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("커서 단위 테스트")
 public class CursorTest {
 
     @DisplayName("커서에 size를 안넣으면 10이 기본값이다.")

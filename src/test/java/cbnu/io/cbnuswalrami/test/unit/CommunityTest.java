@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("커뮤니티 단위 테스트")
 public class CommunityTest {
 
     @DisplayName("커뮤니티 글을 삭제하면 삭제값이 TRUE가 된다.")
