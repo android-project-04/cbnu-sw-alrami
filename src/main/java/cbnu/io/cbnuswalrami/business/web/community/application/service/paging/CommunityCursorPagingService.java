@@ -1,6 +1,6 @@
 package cbnu.io.cbnuswalrami.business.web.community.application.service.paging;
 
-import cbnu.io.cbnuswalrami.business.core.domon.community.infrastructure.query.CommunityQuery;
+import cbnu.io.cbnuswalrami.business.core.domon.post.community.infrastructure.query.CommunityQuery;
 import cbnu.io.cbnuswalrami.business.web.common.Cursor;
 import cbnu.io.cbnuswalrami.business.web.common.CursorResult;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;

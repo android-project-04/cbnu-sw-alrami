@@ -1,7 +1,5 @@
-package cbnu.io.cbnuswalrami.business.core.domon.community.infrastructure.query;
+package cbnu.io.cbnuswalrami.business.core.domon.post.community.infrastructure.query;
 
-import cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted;
-import cbnu.io.cbnuswalrami.business.core.domon.community.entity.QCommunity;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.QResponseCommunity;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -10,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted.*;
-import static cbnu.io.cbnuswalrami.business.core.domon.community.entity.QCommunity.*;
+import static cbnu.io.cbnuswalrami.business.core.domon.post.community.entity.QCommunity.community;
+import static cbnu.io.cbnuswalrami.business.core.domon.post.community_count.entity.QCommunityCount.*;
 
 @Repository
 public class CommunityQuery {
@@ -24,12 +23,14 @@ public class CommunityQuery {
     public List<ResponseCommunity> findResponseCommunities(Long size) {
         return queryFactory.select(new QResponseCommunity(
                         community.id,
-                        community.title,
-                        community.description,
-                        community.url
+                        community.title.title,
+                        community.description.description,
+                        community.url,
+                        community.createdAt,
+                        communityCount.count
                 ))
-                .from(community)
-                .where(community.isDeleted.eq(FALSE))
+                .from(community, communityCount)
+                .where(community.isDeleted.eq(FALSE).and(communityCount.community.id.eq(community.id)))
                 .orderBy(community.id.desc())
                 .limit(size)
                 .fetch();
@@ -38,12 +39,14 @@ public class CommunityQuery {
     public List<ResponseCommunity> findResponseCommunities(Long next, Long size) {
         return queryFactory.select(new QResponseCommunity(
                         community.id,
-                        community.title,
-                        community.description,
-                        community.url
+                        community.title.title,
+                        community.description.description,
+                        community.url,
+                        community.createdAt,
+                        communityCount.count
                 ))
-                .from(community)
-                .where(community.id.lt(next).and(community.isDeleted.eq(FALSE)))
+                .from(community, communityCount)
+                .where(community.id.lt(next).and(community.isDeleted.eq(FALSE)).and(communityCount.community.id.eq(community.id)))
                 .orderBy(community.id.desc())
                 .limit(size)
                 .fetch();

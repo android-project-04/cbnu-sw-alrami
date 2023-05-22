@@ -45,7 +45,8 @@ public class CommunityCursorPagingTest extends AcceptanceTestBase {
                 .when()
                 .get("/api/community/cursor")
                 .then()
-                .statusCode(HttpStatus.OK.value());
+                .statusCode(HttpStatus.OK.value())
+                .log().all();
     }
 
     private static RequestParametersSnippet getRequestParametersSnippet() {
@@ -65,7 +66,9 @@ public class CommunityCursorPagingTest extends AcceptanceTestBase {
                 fieldWithPath("data.values[].id").type(JsonFieldType.NUMBER).description("커뮤니티 게시물 id"),
                 fieldWithPath("data.values[].title").type(JsonFieldType.STRING).description("게시물 제목"),
                 fieldWithPath("data.values[].description").type(JsonFieldType.STRING).description("게시물 내용"),
-                fieldWithPath("data.values[].url").type(JsonFieldType.STRING).description("게시물 사진의 url(null 일 수 있음)")
+                fieldWithPath("data.values[].url").type(JsonFieldType.STRING).description("게시물 사진의 url(null 일 수 있음)"),
+                fieldWithPath("data.values[].count").type(JsonFieldType.NUMBER).description("게시물 조회수"),
+                fieldWithPath("data.values[].createdAt").type(JsonFieldType.STRING).description("게시물 생성 날짜")
         );
     }
 }
