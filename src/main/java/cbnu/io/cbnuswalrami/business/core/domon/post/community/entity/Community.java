@@ -1,11 +1,11 @@
-package cbnu.io.cbnuswalrami.business.core.domon.community.entity;
+package cbnu.io.cbnuswalrami.business.core.domon.post.community.entity;
 
 import cbnu.io.cbnuswalrami.business.core.domon.common.date.DateTime;
 import cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted;
-import cbnu.io.cbnuswalrami.business.core.domon.community.entity.values.Description;
-import cbnu.io.cbnuswalrami.business.core.domon.community.entity.values.Title;
+import cbnu.io.cbnuswalrami.business.core.domon.post.values.Description;
+import cbnu.io.cbnuswalrami.business.core.domon.post.values.Title;
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
-import lombok.Getter;
+import cbnu.io.cbnuswalrami.business.core.domon.post.community_count.entity.CommunityCount;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -99,4 +99,5 @@ public class Community extends DateTime {
     public Member getMember() {
         return member;
     }
+
 }

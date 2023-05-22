@@ -1,6 +1,6 @@
-package cbnu.io.cbnuswalrami.business.core.domon.community.infrastructure.command;
+package cbnu.io.cbnuswalrami.business.core.domon.post.community.infrastructure.command;
 
-import cbnu.io.cbnuswalrami.business.core.domon.community.entity.Community;
+import cbnu.io.cbnuswalrami.business.core.domon.post.community.entity.Community;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
