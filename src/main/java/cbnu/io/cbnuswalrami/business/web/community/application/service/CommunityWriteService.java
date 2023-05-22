@@ -12,6 +12,7 @@ import cbnu.io.cbnuswalrami.business.web.community.presentation.response.Respons
 import cbnu.io.cbnuswalrami.business.web.s3.application.S3Command;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -22,6 +23,7 @@ public class CommunityWriteService {
     private final CommunityJpaRepository communityJpaRepository;
     private final CommunityCountJpaRepository communityCountJpaRepository;
 
+    @Transactional
     public ResponseCommunity writeCommunity(RequestCommunity requestCommunity, MultipartFile file, Member member) {
         String url = file == null ? null : s3Command.uploadFile(file);
         Community community = new Community(

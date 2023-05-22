@@ -6,6 +6,7 @@ import cbnu.io.cbnuswalrami.business.web.common.CursorResult;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class CommunityCursorPagingService {
 
     private final CommunityQuery communityQuery;
 
+    @Transactional(readOnly = true)
     public CursorResult findByCursor(Cursor cursor) {
         List<ResponseCommunity> responseCommunities = getResponseCommunities(cursor);
         Long lastIndex = responseCommunities.isEmpty() ? 0 : responseCommunities.get(responseCommunities.size() - 1).getId();
