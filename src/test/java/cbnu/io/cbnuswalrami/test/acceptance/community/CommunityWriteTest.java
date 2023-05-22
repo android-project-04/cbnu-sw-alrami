@@ -76,7 +76,9 @@ public class CommunityWriteTest extends AcceptanceTestBase {
                 fieldWithPath("data.id").type(JsonFieldType.NUMBER).description("커뮤니티 게시글 id"),
                 fieldWithPath("data.title").type(JsonFieldType.STRING).description("제목"),
                 fieldWithPath("data.description").type(JsonFieldType.STRING).description("게시글 내용"),
-                fieldWithPath("data.url").type(JsonFieldType.STRING).description("첨부한 사진 url(null 일 수 있음)")
+                fieldWithPath("data.url").type(JsonFieldType.STRING).description("첨부한 사진 url(null 일 수 있음)"),
+                fieldWithPath("data.count").type(JsonFieldType.NUMBER).description("게시물 조회수"),
+                fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("게시물 생성 날짜")
         );
     }
 
