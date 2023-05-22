@@ -9,7 +9,6 @@ import cbnu.io.cbnuswalrami.common.configuration.security.metadatasource.FilterI
 import cbnu.io.cbnuswalrami.common.configuration.security.service.CustomUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
@@ -70,6 +69,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .antMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .antMatchers(POST, "/api/community/**").hasAnyAuthority("NORMAL")
+                                .antMatchers("/api/**").authenticated()
                 )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
