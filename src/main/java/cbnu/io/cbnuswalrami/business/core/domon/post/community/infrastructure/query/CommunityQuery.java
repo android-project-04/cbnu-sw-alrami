@@ -24,8 +24,8 @@ public class CommunityQuery {
     public List<ResponseCommunity> findResponseCommunities(Long size) {
         return queryFactory.select(new QResponseCommunity(
                         community.id,
-                        community.title,
-                        community.description,
+                        community.title.title,
+                        community.description.description,
                         community.url
                 ))
                 .from(community)
@@ -38,8 +38,8 @@ public class CommunityQuery {
     public List<ResponseCommunity> findResponseCommunities(Long next, Long size) {
         return queryFactory.select(new QResponseCommunity(
                         community.id,
-                        community.title,
-                        community.description,
+                        community.title.title,
+                        community.description.description,
                         community.url
                 ))
                 .from(community)

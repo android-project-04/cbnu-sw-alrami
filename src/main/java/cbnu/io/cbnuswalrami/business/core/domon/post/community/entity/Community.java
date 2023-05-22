@@ -2,6 +2,8 @@ package cbnu.io.cbnuswalrami.business.core.domon.community.entity;
 
 import cbnu.io.cbnuswalrami.business.core.domon.common.date.DateTime;
 import cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted;
+import cbnu.io.cbnuswalrami.business.core.domon.community.entity.values.Description;
+import cbnu.io.cbnuswalrami.business.core.domon.community.entity.values.Title;
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,6 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Getter
 @Table(name = "community")
 @NoArgsConstructor
 public class Community extends DateTime {
@@ -21,10 +22,12 @@ public class Community extends DateTime {
     private Long id;
 
     @Column(name = "title")
-    private String title;
+    @Embedded
+    private Title title;
 
     @Column(name = "description")
-    private String description;
+    @Embedded
+    private Description description;
 
     @Column(name = "image_url", nullable = true)
     private String url;
@@ -37,7 +40,7 @@ public class Community extends DateTime {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Community(String title, String description, String url, Member member) {
+    public Community(Title title, Description description, String url, Member member) {
         this.title = title;
         this.description = description;
         this.url = url;
@@ -71,5 +74,29 @@ public class Community extends DateTime {
         return "Community{" +
                 "id=" + id +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title.getTitle();
+    }
+
+    public String getDescription() {
+        return description.getDescription();
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public Deleted getIsDeleted() {
+        return isDeleted;
+    }
+
+    public Member getMember() {
+        return member;
     }
 }
