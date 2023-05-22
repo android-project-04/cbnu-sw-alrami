@@ -107,7 +107,6 @@ public class TokenProvider implements AuthenticationProvider {
             log.info("지원되지 않는 JWT 토큰입니다.");
         } catch (IllegalArgumentException e) {
             log.info("JWT 토큰이 잘못되었습니다.");
-            return false;
         }
         return false;
     }
