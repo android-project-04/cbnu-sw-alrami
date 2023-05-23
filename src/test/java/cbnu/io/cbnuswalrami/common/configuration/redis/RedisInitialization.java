@@ -2,7 +2,6 @@ package cbnu.io.cbnuswalrami.common.configuration.redis;
 
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -14,16 +13,13 @@ import java.util.Set;
 
 @Slf4j
 @Component
-@Import({TestRedisConfiguration.class})
 @ActiveProfiles("test")
 public class RedisInitialization {
 
     @Autowired
-    @Qualifier("testRedisStringTemplate")
-    private RedisTemplate<String, String> redisStringTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @Autowired
-    @Qualifier("testSessionRedisTemplate")
     private StringRedisTemplate stringRedisTemplate;
 
     public void init() {
@@ -31,7 +27,7 @@ public class RedisInitialization {
     }
 
     private void initRedisStringTemplate() {
-        Set<String> redisKeys = redisStringTemplate.keys("*");
+        Set<String> redisKeys = redisTemplate.keys("*");
         Set<String> stringRedisKeys = stringRedisTemplate.keys("*");
 
         if (redisKeys == null) {
@@ -43,7 +39,7 @@ public class RedisInitialization {
         }
 
         for (String key : redisKeys) {
-            redisStringTemplate.delete(key);
+            redisTemplate.delete(key);
         }
 
         for (String key : stringRedisKeys) {
