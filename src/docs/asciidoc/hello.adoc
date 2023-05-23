@@ -113,3 +113,11 @@ include::{snippets}/old-community-paging-get/request-parameters.adoc[]
 ==== http response
 include::{snippets}/old-community-paging-get/http-response.adoc[]
 include::{snippets}/old-community-paging-get/response-fields.adoc[]
+
+==== 커뮤니티 id값으로 조회
+/api/community/{조회할 커뮤니티 id값}
+include::{snippets}/find-community-by-id/http-request.adoc[]
+
+==== http response
+include::{snippets}/find-community-by-id/http-response.adoc[]
+include::{snippets}/find-community-by-id/response-fields.adoc[]
