@@ -32,7 +32,7 @@ public class RedisConfiguration {
         return new LettuceConnectionFactory(serverConfig, clientConfig);
     }
 
-    @Bean(name = "sessionsRedisTemplate")
+    @Bean(name = "redisTemplate")
     public RedisTemplate<String, Object> objectRedisTemplate() {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));

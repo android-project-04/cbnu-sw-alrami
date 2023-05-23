@@ -1,4 +1,4 @@
-package cbnu.io.cbnuswalrami.test.unit.cursor;
+package cbnu.io.cbnuswalrami.test.unit.common;
 
 import cbnu.io.cbnuswalrami.business.web.common.Cursor;
 import org.junit.jupiter.api.DisplayName;

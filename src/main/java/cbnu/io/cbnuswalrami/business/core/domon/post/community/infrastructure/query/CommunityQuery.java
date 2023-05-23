@@ -101,4 +101,18 @@ public class CommunityQuery {
                 .limit(size)
                 .fetch();
     }
+
+    public ResponseCommunity findCommunityById(Long id) {
+        return queryFactory.select(new QResponseCommunity(
+                        community.id,
+                        community.title.title,
+                        community.description.description,
+                        community.url,
+                        community.createdAt,
+                        communityCount.count
+                ))
+                .from(community, communityCount)
+                .where(community.id.eq(id).and(community.isDeleted.eq(FALSE).and(communityCount.community.id.eq(community.id))))
+                .fetchOne();
+    }
 }
