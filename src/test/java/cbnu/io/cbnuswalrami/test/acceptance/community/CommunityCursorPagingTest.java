@@ -62,7 +62,7 @@ public class CommunityCursorPagingTest extends AcceptanceTestBase {
                 fieldWithPath("status").type(JsonFieldType.STRING).description("HTTP 상태값"),
                 fieldWithPath("code").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                 fieldWithPath("data.hasNext").type(JsonFieldType.BOOLEAN).description("다음 요청할 수 있는 멤버가 있는지"),
-                fieldWithPath("data.lastIndex").type(JsonFieldType.NUMBER).description("요청한 멤버의 마지막 index번호"),
+                fieldWithPath("data.lastIndex").type(JsonFieldType.NUMBER).description("요청한 멤버의 마지막 index번호(해당 번호를 next값으로 쓰면 된다)"),
                 fieldWithPath("data.values[].id").type(JsonFieldType.NUMBER).description("커뮤니티 게시물 id"),
                 fieldWithPath("data.values[].title").type(JsonFieldType.STRING).description("게시물 제목"),
                 fieldWithPath("data.values[].description").type(JsonFieldType.STRING).description("게시물 내용"),
