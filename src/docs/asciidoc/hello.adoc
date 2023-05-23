@@ -95,11 +95,21 @@ include::{snippets}/community-post/response-body.adoc[]
 include::{snippets}/community-post/response-fields.adoc[]
 
 
-=== 커뮤니티 페이징 조회
+=== 커뮤니티 페이징 조회(최신순)
 ==== http request
-include::{snippets}/community-paging-get/curl-request.adoc[]
+include::{snippets}/community-paging-get/http-request.adoc[]
 include::{snippets}/community-paging-get/request-parameters.adoc[]
 
 ==== http response
 include::{snippets}/community-paging-get/http-response.adoc[]
 include::{snippets}/community-paging-get/response-fields.adoc[]
+
+
+=== 커뮤니티 페이징 조회(오래된 순)
+==== http request
+include::{snippets}/old-community-paging-get/http-request.adoc[]
+include::{snippets}/old-community-paging-get/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/old-community-paging-get/http-response.adoc[]
+include::{snippets}/old-community-paging-get/response-fields.adoc[]

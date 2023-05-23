@@ -18,14 +18,13 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
-@DisplayName("커뮤니티 커서 페이징 인수테스트")
-public class CommunityCursorPagingTest extends AcceptanceTestBase {
+@DisplayName("오래된 순으로 커뮤니티 커서 페이징 조회 인수 테스트")
+public class OldCommunityCursorPagingTest extends AcceptanceTestBase {
 
     @Autowired
     private CommunityFixture communityFixture;
 
-
-    @DisplayName("조회 id인 next 값과 size 6개로 조회하면 status code 200과 6개의 values 를 리턴한다")
+    @DisplayName("조회 id인 next 값과 size 6개로 조회하면 status code 200과 오래된 순의 6개의 values 를 리턴한다")
     @Test
     public void given_next_and_size_when__cursor_paging_then_status_code_200() {
         // given
@@ -38,12 +37,12 @@ public class CommunityCursorPagingTest extends AcceptanceTestBase {
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
                 .filter(document(
-                        "community-paging-get",
+                        "old-community-paging-get",
                         getRequestParametersSnippet(),
                         getResponseFieldsSnippet()
                 ))
                 .when()
-                .get("/api/community/cursor")
+                .get("/api/community/old/cursor")
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .log().all();
