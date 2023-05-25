@@ -30,14 +30,4 @@ public class EmploymentCommunityCursorPagingAPI {
                 .ok()
                 .body(ApiResponse.of(cursorResult));
     }
-
-    @GetMapping("/old/cursor")
-    public ResponseEntity<ApiResponse> findOldEmploymentCommunity(
-            @RequestParam @Nullable Long next,
-            @RequestParam @Nullable Long size
-    ) {
-        return ResponseEntity
-                .ok()
-                .body(null);
-    }
 }
