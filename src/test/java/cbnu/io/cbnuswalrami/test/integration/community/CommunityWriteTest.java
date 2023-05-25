@@ -1,6 +1,7 @@
 package cbnu.io.cbnuswalrami.test.integration.community;
 
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.post.values.CommunityType;
 import cbnu.io.cbnuswalrami.business.web.community.application.service.CommunityWriteService;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.request.RequestCommunity;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
+import static cbnu.io.cbnuswalrami.business.core.domon.post.values.CommunityType.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -35,7 +37,7 @@ public class CommunityWriteTest extends DatabaseTestBase {
         RequestCommunity requestCommunity = new RequestCommunity(title, description);
 
         // when
-        ResponseCommunity actual = communityWriteService.writeCommunity(requestCommunity, file, member);
+        ResponseCommunity actual = communityWriteService.writeCommunity(requestCommunity, file, member, COMMUNITY);
 
         // then
         assertThat(actual.getTitle()).isEqualTo(title);
@@ -56,9 +58,10 @@ public class CommunityWriteTest extends DatabaseTestBase {
         // then
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> communityWriteService.writeCommunity(
-                        requestCommunity,
-                        file,
-                        member
+                                requestCommunity,
+                                file,
+                                member,
+                                COMMUNITY
                         )
                 );
         assertThat(exception.getMessage()).isEqualTo("제목을 입력해주세요.");
@@ -79,7 +82,8 @@ public class CommunityWriteTest extends DatabaseTestBase {
                 assertThrows(IllegalArgumentException.class, () -> communityWriteService.writeCommunity(
                                 requestCommunity,
                                 file,
-                                member
+                                member,
+                                COMMUNITY
                         )
                 );
         assertThat(exception.getMessage()).isEqualTo("제목을 입력해주세요.");
@@ -100,7 +104,8 @@ public class CommunityWriteTest extends DatabaseTestBase {
                 assertThrows(IllegalArgumentException.class, () -> communityWriteService.writeCommunity(
                                 requestCommunity,
                                 file,
-                                member
+                                member,
+                                COMMUNITY
                         )
                 );
         assertThat(exception.getMessage()).isEqualTo("글을 작성해주세요.");
@@ -122,7 +127,8 @@ public class CommunityWriteTest extends DatabaseTestBase {
                 assertThrows(IllegalArgumentException.class, () -> communityWriteService.writeCommunity(
                                 requestCommunity,
                                 file,
-                                member
+                                member,
+                                COMMUNITY
                         )
                 );
         assertThat(exception.getMessage()).isEqualTo("글을 작성해주세요.");

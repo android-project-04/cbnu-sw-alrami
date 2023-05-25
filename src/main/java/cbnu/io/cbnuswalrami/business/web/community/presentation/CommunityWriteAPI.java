@@ -1,6 +1,7 @@
 package cbnu.io.cbnuswalrami.business.web.community.presentation;
 
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.post.values.CommunityType;
 import cbnu.io.cbnuswalrami.business.web.community.application.service.CommunityWriteService;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.request.RequestCommunity;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
@@ -17,6 +18,7 @@ import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import static cbnu.io.cbnuswalrami.business.core.domon.post.values.CommunityType.*;
 import static org.springframework.http.MediaType.*;
 
 @RestController
@@ -33,12 +35,12 @@ public class CommunityWriteAPI {
             @Nullable @RequestPart("file") MultipartFile file,
             HttpServletRequest request
             ) {
-//        Member member = memberFindUtil.findMemberByAuthentication();
         Member member = memberFindUtil.findMemberByBearerToken(request);
         ResponseCommunity responseCommunity = communityWriteService.writeCommunity(
                 requestCommunity,
                 file,
-                member
+                member,
+                COMMUNITY
         );
         return ResponseEntity
                 .ok()
