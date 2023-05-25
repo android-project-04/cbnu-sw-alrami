@@ -114,7 +114,7 @@ include::{snippets}/old-community-paging-get/request-parameters.adoc[]
 include::{snippets}/old-community-paging-get/http-response.adoc[]
 include::{snippets}/old-community-paging-get/response-fields.adoc[]
 
-=== 커뮤니티 id값으로 조회
+=== 커뮤니티 게시글 조회
 ==== http request
 /api/community/{조회할 커뮤니티 id값}
 include::{snippets}/find-community-by-id/http-request.adoc[]
@@ -134,3 +134,33 @@ include::{snippets}/employment-community-paging-get/request-parameters.adoc[]
 ==== http response
 include::{snippets}/employment-community-paging-get/http-response.adoc[]
 include::{snippets}/employment-community-paging-get/response-fields.adoc[]
+
+
+=== 취업정보 커뮤니티 페이징 조회(오래된순)
+==== http request
+include::{snippets}/old-community-paging-get/http-request.adoc[]
+include::{snippets}/old-community-paging-get/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/old-community-paging-get/http-response.adoc[]
+include::{snippets}/old-community-paging-get/response-fields.adoc[]
+
+
+=== 취업정보 커뮤니티 글 등록
+==== http request
+include::{snippets}/employment-community-post/curl-request.adoc[]
+include::{snippets}/employment-community-post/request-part-requestCommunity-fields.adoc[]
+
+==== http response
+include::{snippets}/employment-community-post/http-response.adoc[]
+include::{snippets}/employment-community-post/response-fields.adoc[]
+
+=== 취업정보 커뮤니티 게시글 조회
+/api/community/{조회할 커뮤니티 id값}
+include::{snippets}/find-community-by-id/http-request.adoc[]
+
+==== http response
+include::{snippets}/find-community-by-id/http-response.adoc[]
+include::{snippets}/find-community-by-id/response-fields.adoc[]
+
+
