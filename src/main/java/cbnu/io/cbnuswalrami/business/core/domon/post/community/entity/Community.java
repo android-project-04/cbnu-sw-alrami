@@ -2,10 +2,10 @@ package cbnu.io.cbnuswalrami.business.core.domon.post.community.entity;
 
 import cbnu.io.cbnuswalrami.business.core.domon.common.date.DateTime;
 import cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted;
+import cbnu.io.cbnuswalrami.business.core.domon.post.values.CommunityType;
 import cbnu.io.cbnuswalrami.business.core.domon.post.values.Description;
 import cbnu.io.cbnuswalrami.business.core.domon.post.values.Title;
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
-import cbnu.io.cbnuswalrami.business.core.domon.post.community_count.entity.CommunityCount;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -40,12 +40,26 @@ public class Community extends DateTime {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "community_type")
+    private CommunityType communityType;
+
     public Community(Title title, Description description, String url, Member member) {
         this.title = title;
         this.description = description;
         this.url = url;
         this.isDeleted = Deleted.FALSE;
         this.member = member;
+        this.communityType = CommunityType.COMMUNITY;
+    }
+
+    public Community(Title title, Description description, String url, Member member, CommunityType communityType) {
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.isDeleted = Deleted.FALSE;
+        this.member = member;
+        this.communityType = communityType;
     }
 
 
@@ -100,4 +114,7 @@ public class Community extends DateTime {
         return member;
     }
 
+    public CommunityType getCommunityType() {
+        return communityType;
+    }
 }
