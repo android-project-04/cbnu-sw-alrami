@@ -73,6 +73,7 @@ erDiagram
     MEMBER ||--o{ COMMUNITY : make
     MEMBER ||--o{ COMMUNITY_BOOKMARK : make
     COMMUNITY ||--|| COMMUNITY_COUNT : count
+    COMMUNITY |o--o{ COMMUNITY_BOOKMARK : make
 
     MEMBER {
         int member_id PK
