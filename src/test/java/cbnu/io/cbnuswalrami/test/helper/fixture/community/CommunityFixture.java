@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static cbnu.io.cbnuswalrami.business.core.domon.post.values.CommunityType.*;
+
 @Component
 public class CommunityFixture {
 
@@ -38,7 +40,27 @@ public class CommunityFixture {
 
         List<ResponseCommunity> responseCommunities = new ArrayList<>();
         for (RequestCommunity community : communities) {
-            responseCommunities.add(communityWriteService.writeCommunity(community, file, member));
+            responseCommunities.add(communityWriteService.writeCommunity(community, file, member, COMMUNITY));
+        }
+        return responseCommunities;
+    }
+
+    public List<ResponseCommunity> write15EmploymentCommunity() {
+        Member member = signupFixture.signupMember(
+                "ADKLa1234",
+                "Abcd1234@!",
+                "한글닉네임"
+        );
+
+        MultipartFile file = FileFixture.createFile();
+
+        List<RequestCommunity> communities = new ArrayList<>();
+        IntStream.rangeClosed(1, 15)
+                .forEach(x -> communities.add(new RequestCommunity("title" + x, "desc" + x)));
+
+        List<ResponseCommunity> responseCommunities = new ArrayList<>();
+        for (RequestCommunity community : communities) {
+            responseCommunities.add(communityWriteService.writeCommunity(community, file, member, EMPLOYMENT));
         }
         return responseCommunities;
     }
