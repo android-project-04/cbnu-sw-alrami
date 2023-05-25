@@ -124,6 +124,7 @@ erDiagram
         string image_url
         string description
         boolean is_deleted
+        string community_type
     }
 
     COMMUNITY_COUNT {
