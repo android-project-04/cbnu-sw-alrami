@@ -67,6 +67,20 @@ include::{snippets}/NoApprovalMembers/response-body.adoc[]
 include::{snippets}/NoApprovalMembers/response-fields.adoc[]
 
 
+=== 유저 30일 정지
+ADMIN 권한으로 사용 가능
+
+/api/admin/stop-member/{정지할 유저 id번호}
+
+==== http request
+include::{snippets}/post-stop-member/http-request.adoc[]
+
+==== http response
+include::{snippets}/post-stop-member/http-response.adoc[]
+include::{snippets}/post-stop-member/response-fields.adoc[]
+
+
+
 == Notification
 
 === 공지 커서 기반 조회(최신순)
