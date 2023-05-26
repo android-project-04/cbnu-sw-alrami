@@ -92,6 +92,10 @@ public class Member {
         this.role = Role.ADMIN;
     }
 
+    public void changeRole(Role role) {
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }
