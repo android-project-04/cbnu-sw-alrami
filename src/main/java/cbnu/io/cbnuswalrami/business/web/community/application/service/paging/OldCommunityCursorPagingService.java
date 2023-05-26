@@ -29,6 +29,7 @@ public class OldCommunityCursorPagingService {
     }
 
     private Boolean hasNext(Long lastIndex, CommunityType communityType) {
+        if (lastIndex <= 1 || lastIndex == null) return false;
         return communityQuery.existOldCommunityId(lastIndex, communityType);
     }
 
