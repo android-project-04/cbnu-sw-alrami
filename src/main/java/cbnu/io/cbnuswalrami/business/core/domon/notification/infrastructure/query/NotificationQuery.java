@@ -49,4 +49,42 @@ public class NotificationQuery {
                 .fetch();
         return fetch.size() > 0;
     }
+
+    /**
+     * 오래된 순으로 커서 페이징 조회
+     */
+
+    public List<NotificationDto> findOldNotificationDtoByCursor(Long next, Long size) {
+        return jpaQueryFactory.select(new QNotificationDto(
+                        notification.id,
+                        notification.title,
+                        notification.url
+                ))
+                .from(notification)
+                .where(notification.id.gt(next))
+                .orderBy(notification.id.asc())
+                .limit(size)
+                .fetch();
+    }
+
+    public List<NotificationDto> findOldNotificationDtoByCursor(Long size) {
+        return jpaQueryFactory.select(new QNotificationDto(
+                        notification.id,
+                        notification.title,
+                        notification.url
+                ))
+                .from(notification)
+                .orderBy(notification.id.asc())
+                .limit(size)
+                .fetch();
+    }
+
+    public Boolean existOldNotificationById(Long id) {
+        List<Long> fetch = jpaQueryFactory.select(notification.id)
+                .from(notification)
+                .where(notification.id.gt(id))
+                .limit(1L)
+                .fetch();
+        return fetch.size() > 0;
+    }
 }

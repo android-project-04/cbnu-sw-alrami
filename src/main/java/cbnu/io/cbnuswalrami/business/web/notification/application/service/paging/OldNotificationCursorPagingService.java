@@ -5,8 +5,6 @@ import cbnu.io.cbnuswalrami.business.web.common.Cursor;
 import cbnu.io.cbnuswalrami.business.web.common.CursorResult;
 import cbnu.io.cbnuswalrami.business.web.notification.presentation.response.NotificationDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class NotificationCursorPagingService {
+public class OldNotificationCursorPagingService {
 
     private final NotificationQuery notificationQuery;
 
@@ -28,14 +26,14 @@ public class NotificationCursorPagingService {
 
     private List<NotificationDto> getNotifications(Cursor cursor) {
         if (cursor.getNext() == null) {
-            return notificationQuery.findByNotificationDtoByCursor(cursor.getSize());
+            return notificationQuery.findOldNotificationDtoByCursor(cursor.getSize());
         }
-        return notificationQuery.findByNotificationDtoByCursor(cursor.getNext(), cursor.getSize());
+        return notificationQuery.findOldNotificationDtoByCursor(cursor.getNext(), cursor.getSize());
     }
 
     private Boolean hasNext(Long id) {
         if (id <= 1 || id == null) return false;
 
-        return notificationQuery.existNotificationById(id);
+        return notificationQuery.existOldNotificationById(id);
     }
 }
