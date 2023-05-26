@@ -69,7 +69,7 @@ include::{snippets}/NoApprovalMembers/response-fields.adoc[]
 
 == Notification
 
-=== 공지 커서 기반 조회
+=== 공지 커서 기반 조회(최신순)
 ==== http request
 include::{snippets}/get-notifications/http-request.adoc[]
 include::{snippets}/get-notifications/request-parameters.adoc[]
@@ -77,6 +77,15 @@ include::{snippets}/get-notifications/request-parameters.adoc[]
 ==== http response
 include::{snippets}/get-notifications/response-body.adoc[]
 include::{snippets}/get-notifications/response-fields.adoc[]
+
+=== 공지 커서 기반 조회(오래된순)
+==== http request
+include::{snippets}/get-old-notifications/http-request.adoc[]
+include::{snippets}/get-old-notifications/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/get-old-notifications/response-body.adoc[]
+include::{snippets}/get-old-notifications/response-fields.adoc[]
 
 
 == Community
