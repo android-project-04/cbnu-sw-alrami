@@ -18,11 +18,8 @@ public class NotificationCursorPagingService {
 
     private final NotificationQuery notificationQuery;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public CursorResult findNotificationDtoByCursor(Cursor cursor) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = authentication.getName();
-        Object principal = authentication.getPrincipal();
         List<NotificationDto> notificationDtos = getNotifications(cursor);
         Long lastIndex = notificationDtos.isEmpty() ? 0 : notificationDtos.get(notificationDtos.size() - 1).getId();
         Boolean hasNext = hasNext(lastIndex);
