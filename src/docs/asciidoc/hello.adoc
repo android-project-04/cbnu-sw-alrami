@@ -79,6 +79,18 @@ include::{snippets}/post-stop-member/http-request.adoc[]
 include::{snippets}/post-stop-member/http-response.adoc[]
 include::{snippets}/post-stop-member/response-fields.adoc[]
 
+=== 멤버 본인 닉네임 변경
+파라미터로 주시면 됩니다.
+
+처음 생성 혹은 마지막 변경일자에서 30일 이상 지나야 닉네임 변경이 가능합니다.
+
+==== http request
+include::{snippets}/put-member-nickname/curl-request.adoc[]
+include::{snippets}/put-member-nickname/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/put-member-nickname/http-response.adoc[]
+include::{snippets}/put-member-nickname/response-fields.adoc[]
 
 
 == Notification
