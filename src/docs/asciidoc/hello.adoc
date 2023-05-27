@@ -93,6 +93,16 @@ include::{snippets}/put-member-nickname/http-response.adoc[]
 include::{snippets}/put-member-nickname/response-fields.adoc[]
 
 
+=== 본인 마이페이지 조회
+==== http request
+include::{snippets}/get-mypage/http-request.adoc[]
+
+==== http response
+include::{snippets}/get-mypage/http-response.adoc[]
+include::{snippets}/get-mypage/response-fields.adoc[]
+
+
+
 == Notification
 
 === 공지 커서 기반 조회(최신순)

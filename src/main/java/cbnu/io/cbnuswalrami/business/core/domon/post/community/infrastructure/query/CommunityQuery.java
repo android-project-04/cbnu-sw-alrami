@@ -1,8 +1,11 @@
 package cbnu.io.cbnuswalrami.business.core.domon.post.community.infrastructure.query;
 
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.core.domon.post.values.CommunityType;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.QResponseCommunity;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
+import cbnu.io.cbnuswalrami.business.web.member.presentation.response.QResponseMyPageCommunity;
+import cbnu.io.cbnuswalrami.business.web.member.presentation.response.ResponseMyPageCommunity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -199,5 +202,17 @@ public class CommunityQuery {
                 .limit(1)
                 .fetch();
         return fetch.size() > 0L;
+    }
+
+    /**
+     * Member의 MyPage에서 조회할 때 쿼리
+     */
+    public List<ResponseMyPageCommunity> findMyPageCommunityByMember(Member member) {
+        return queryFactory.select(new QResponseMyPageCommunity(community.id, community.title.title))
+                .from(community)
+                .where(
+                        community.member.eq(member)
+                                .and(community.isDeleted.eq(FALSE))
+                ).fetch();
     }
 }

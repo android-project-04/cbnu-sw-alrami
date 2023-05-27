@@ -64,4 +64,18 @@ public class CommunityFixture {
         }
         return responseCommunities;
     }
+
+    public List<ResponseCommunity> write15Community(Member member) {
+        MultipartFile file = FileFixture.createFile();
+
+        List<RequestCommunity> communities = new ArrayList<>();
+        IntStream.rangeClosed(1, 15)
+                .forEach(x -> communities.add(new RequestCommunity("title" + x, "desc" + x)));
+
+        List<ResponseCommunity> responseCommunities = new ArrayList<>();
+        for (RequestCommunity community : communities) {
+            responseCommunities.add(communityWriteService.writeCommunity(community, file, member, COMMUNITY));
+        }
+        return responseCommunities;
+    }
 }
