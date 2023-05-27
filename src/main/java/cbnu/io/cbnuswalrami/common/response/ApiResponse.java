@@ -1,12 +1,14 @@
 package cbnu.io.cbnuswalrami.common.response;
 
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
 public final class ApiResponse<T> {
 
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private final LocalDateTime eventTime;
     private HttpStatus status;
     private final Integer code;
