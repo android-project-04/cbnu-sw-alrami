@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 @Embeddable
 public class Nickname {
 
-    private static final Pattern pattern = Pattern.compile("^(?=.*[a-z0-9ㄱ-ㅎ가-힣])[ㄱ-ㅎa-z0-9가-힣]{2,16}$");
+    private static final Pattern pattern = Pattern.compile("^(?=.*[\\p{IsHangul}\\p{IsAlphabetic}]).{3,39}$");
 
     private String nickname;
 
