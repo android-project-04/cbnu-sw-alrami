@@ -19,4 +19,16 @@ class MemberTest {
 
         assertThat(member.getRole()).isEqualTo(STOP_USER);
     }
+
+    @DisplayName("멤버의 닉네임을 변경한다.")
+    @Test
+    void when_change_nickname_then_changed_nickname() {
+        // given
+        String changeNickname = "한글 닉네임😀";
+        Member member = MemberFixture.createMember();
+
+        // when
+        member.changeNickname(changeNickname);
+        assertThat(member.getNickname().getNickname()).isEqualTo(changeNickname);
+    }
 }
