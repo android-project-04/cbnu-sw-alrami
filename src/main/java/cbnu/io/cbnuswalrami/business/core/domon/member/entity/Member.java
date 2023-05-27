@@ -63,7 +63,13 @@ public class Member {
 
 
 
-    public Member(LoginId loginId, Password password, Nickname nickname, StudentNumber studentNumber, String userPictureUrl, Role role) {
+    public Member(LoginId loginId,
+                  Password password,
+                  Nickname nickname,
+                  StudentNumber studentNumber,
+                  String userPictureUrl,
+                  Role role
+    ) {
         this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;
@@ -73,7 +79,12 @@ public class Member {
         this.isDeleted = Deleted.FALSE;
     }
 
-    public Member(LoginId loginId, Password password, Nickname nickname, StudentNumber studentNumber, String userPictureUrl) {
+    public Member(LoginId loginId,
+                  Password password,
+                  Nickname nickname,
+                  StudentNumber studentNumber,
+                  String userPictureUrl
+    ) {
         this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;
@@ -94,6 +105,10 @@ public class Member {
 
     public void changeRole(Role role) {
         this.role = role;
+    }
+
+    public void changeNickname(String nickname) {
+        this.nickname = Nickname.from(nickname);
     }
 
     public Long getId() {
