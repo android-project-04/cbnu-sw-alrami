@@ -15,6 +15,17 @@ http://ec2-3-39-25-103.ap-northeast-2.compute.amazonaws.com/docs/index.html
 
 <br/>
 
+
+## 사용 기술
+- Cloud: AWS EC2, RDS
+- Framework: Spring boot, Spring Security, Spring Rest Docs
+- ORM: JPA, QueryDSL
+- Test: JUnit5, RestAssured, Test Container
+- CI/CD: Github actions, docker, slack
+- DB: MySQL, Redis
+
+<br/>
+
 ``` mermaid
 mindmap
   root(cbnu sw alrami)
