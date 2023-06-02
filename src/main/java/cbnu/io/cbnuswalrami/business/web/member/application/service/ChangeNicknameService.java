@@ -38,9 +38,6 @@ public class ChangeNicknameService {
         LocalDateTime now = LocalDateTime.now();
         long dayBetween = ChronoUnit.DAYS.between(memberLastModifiedDate, now);
 
-        System.out.println("memberLastModifiedDate = " + memberLastModifiedDate);
-        System.out.println("dayBetween = " + dayBetween);
-
         if (dayBetween < 30) {
             throw new IllegalArgumentException("아직 마지막으로 유저정보를 바꾼지 30일이 지나지 않았습니다.");
         }

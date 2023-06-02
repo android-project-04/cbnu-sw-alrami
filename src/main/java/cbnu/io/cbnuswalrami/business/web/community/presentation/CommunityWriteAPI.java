@@ -1,16 +1,13 @@
 package cbnu.io.cbnuswalrami.business.web.community.presentation;
 
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
-import cbnu.io.cbnuswalrami.business.core.domon.post.values.CommunityType;
 import cbnu.io.cbnuswalrami.business.web.community.application.service.CommunityWriteService;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.request.RequestCommunity;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
 import cbnu.io.cbnuswalrami.business.web.util.MemberFindUtil;
 import cbnu.io.cbnuswalrami.common.response.ApiResponse;
-import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
