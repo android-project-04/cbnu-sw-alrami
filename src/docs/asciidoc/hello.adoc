@@ -209,3 +209,12 @@ include::{snippets}/find-community-by-id/http-response.adoc[]
 include::{snippets}/find-community-by-id/response-fields.adoc[]
 
 
+== Favorites
+=== 공지글 즐겨찾기에 저장
+==== http request
+/api/notification-bookmark/{저장할 공지 id}
+include::{snippets}/post-favorite-notification/http-request.adoc[]
+
+==== http response
+include::{snippets}/post-favorite-notification/http-response.adoc[]
+include::{snippets}/post-favorite-notification/response-fields.adoc[]
