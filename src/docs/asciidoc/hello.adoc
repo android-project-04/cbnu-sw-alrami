@@ -218,3 +218,12 @@ include::{snippets}/post-favorite-notification/http-request.adoc[]
 ==== http response
 include::{snippets}/post-favorite-notification/http-response.adoc[]
 include::{snippets}/post-favorite-notification/response-fields.adoc[]
+
+=== 공지글 즐겨찾기 페이징 조회(최신순)
+==== http request
+include::{snippets}/get-notification-favorite/http-request.adoc[]
+include::{snippets}/get-notification-favorite/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/get-notification-favorite/http-response.adoc[]
+include::{snippets}/get-notification-favorite/response-fields.adoc[]
