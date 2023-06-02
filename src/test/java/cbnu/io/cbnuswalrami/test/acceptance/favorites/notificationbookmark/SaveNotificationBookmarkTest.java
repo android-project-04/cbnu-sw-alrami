@@ -1,4 +1,4 @@
-package cbnu.io.cbnuswalrami.test.acceptance.favorites;
+package cbnu.io.cbnuswalrami.test.acceptance.favorites.notificationbookmark;
 
 import cbnu.io.cbnuswalrami.business.core.domon.notification.Notification;
 import cbnu.io.cbnuswalrami.common.configuration.container.AcceptanceTestBase;
