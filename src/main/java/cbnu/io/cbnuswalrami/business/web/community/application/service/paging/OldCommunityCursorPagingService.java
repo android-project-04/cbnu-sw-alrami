@@ -28,12 +28,12 @@ public class OldCommunityCursorPagingService {
         return CursorResult.from(responseCommunities, hasNext, lastIndex);
     }
 
-    private Boolean hasNext(Long lastIndex, CommunityType communityType) {
+    public Boolean hasNext(Long lastIndex, CommunityType communityType) {
         if (lastIndex <= 1 || lastIndex == null) return false;
         return communityQuery.existOldCommunityId(lastIndex, communityType);
     }
 
-    private List<ResponseCommunity> getResponseCommunities(Cursor cursor) {
+    public List<ResponseCommunity> getResponseCommunities(Cursor cursor) {
         if (cursor.getNext() == null) {
             return communityQuery.findResponseOldCommunities(cursor.getSize());
         }
@@ -49,7 +49,7 @@ public class OldCommunityCursorPagingService {
         return CursorResult.from(responseCommunities, hasNext, lastIndex);
     }
 
-    private List<ResponseCommunity> getResponseEmploymentCommunities(Cursor cursor) {
+    public List<ResponseCommunity> getResponseEmploymentCommunities(Cursor cursor) {
         if (cursor.getNext() == null) {
             return communityQuery.findResponseOldEmploymentCommunities(cursor.getSize());
         }

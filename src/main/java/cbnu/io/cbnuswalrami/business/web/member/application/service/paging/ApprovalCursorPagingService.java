@@ -26,14 +26,14 @@ public class ApprovalCursorPagingService {
         return CursorResult.from(memberDtos, hasNext, lastIndex);
     }
 
-    private List<MemberDto> getMemberDtos(Cursor cursor) {
+    public List<MemberDto> getMemberDtos(Cursor cursor) {
         if (cursor.getNext() == null) {
             return memberQueryRepository.findMemberDtosByCursor(cursor.getSize());
         }
         return memberQueryRepository.findMemberDtosByCursor(cursor.getSize(), cursor.getNext());
     }
 
-    private Boolean hasNext(Long id) {
+    public Boolean hasNext(Long id) {
         if (id == null || id <= 1) return false;
 
         return memberQueryRepository.existMemberById(id);
