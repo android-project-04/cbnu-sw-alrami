@@ -26,14 +26,14 @@ public class NotificationCursorPagingService {
         return CursorResult.from(notificationDtos, hasNext, lastIndex);
     }
 
-    private List<NotificationDto> getNotifications(Cursor cursor) {
+    public List<NotificationDto> getNotifications(Cursor cursor) {
         if (cursor.getNext() == null) {
             return notificationQuery.findByNotificationDtoByCursor(cursor.getSize());
         }
         return notificationQuery.findByNotificationDtoByCursor(cursor.getNext(), cursor.getSize());
     }
 
-    private Boolean hasNext(Long id) {
+    public Boolean hasNext(Long id) {
         if (id <= 1 || id == null) return false;
 
         return notificationQuery.existNotificationById(id);
