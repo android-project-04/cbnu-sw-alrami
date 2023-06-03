@@ -227,3 +227,12 @@ include::{snippets}/get-notification-favorite/request-parameters.adoc[]
 ==== http response
 include::{snippets}/get-notification-favorite/http-response.adoc[]
 include::{snippets}/get-notification-favorite/response-fields.adoc[]
+
+=== 공지글 즐겨찾기 삭제
+==== http request
+/api/notification-bookmark/{삭제할 북마크 id값}
+include::{snippets}/delete-favorite-notification/http-request.adoc[]
+
+==== http response
+include::{snippets}/delete-favorite-notification/http-response.adoc[]
+include::{snippets}/delete-favorite-notification/response-fields.adoc[]
