@@ -70,6 +70,7 @@ public class SecurityConfig {
                         .antMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .antMatchers(POST, "/api/community/**").hasAnyAuthority("NORMAL")
                                 .antMatchers("/api/community/**").authenticated()
+                        .antMatchers("/api/**").authenticated()
                 )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
