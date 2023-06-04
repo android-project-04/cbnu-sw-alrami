@@ -37,10 +37,10 @@ public class SaveCommunityBookmarkService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시물의 조회수가 없습니다."));
 
         CommunityBookmark communityBookmark = new CommunityBookmark(member, community);
-        communityBookmarkJpaRepository.save(communityBookmark);
+        CommunityBookmark savedCommunity = communityBookmarkJpaRepository.save(communityBookmark);
 
         ResponseCommunity responseCommunity = new ResponseCommunity(
-                community.getId(),
+                savedCommunity.getId(),
                 community.getTitle(),
                 community.getDescription(),
                 community.getUrl(),

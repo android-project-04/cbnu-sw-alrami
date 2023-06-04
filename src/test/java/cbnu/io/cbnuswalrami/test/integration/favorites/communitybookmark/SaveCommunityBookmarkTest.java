@@ -8,11 +8,9 @@ import cbnu.io.cbnuswalrami.business.web.util.MemberFindUtil;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.test.helper.fixture.community.CommunityFixture;
 import cbnu.io.cbnuswalrami.test.helper.fixture.member.SignupFixture;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("커뮤니티 즐겨찾기 저장 통합테스트")
-public class SaveCommunityBookmarkTest extends DatabaseTestBase {
+class SaveCommunityBookmarkTest extends DatabaseTestBase {
 
     @Autowired
     private MemberFindUtil memberFindUtil;
