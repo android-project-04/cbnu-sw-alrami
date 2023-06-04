@@ -1,4 +1,4 @@
-package cbnu.io.cbnuswalrami.business.web.notification;
+package cbnu.io.cbnuswalrami.business.web.notification.presentation;
 
 import cbnu.io.cbnuswalrami.business.web.common.Cursor;
 import cbnu.io.cbnuswalrami.business.web.common.CursorResult;
