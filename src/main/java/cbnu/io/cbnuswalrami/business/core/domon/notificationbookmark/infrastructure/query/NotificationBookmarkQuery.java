@@ -1,5 +1,7 @@
 package cbnu.io.cbnuswalrami.business.core.domon.notificationbookmark.infrastructure.query;
 
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.QMember;
 import cbnu.io.cbnuswalrami.business.core.domon.notification.QNotification;
 import cbnu.io.cbnuswalrami.business.core.domon.notificationbookmark.entity.QNotificationBookmark;
 import cbnu.io.cbnuswalrami.business.web.notification.presentation.response.NotificationDto;
@@ -19,7 +21,7 @@ public class NotificationBookmarkQuery {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<NotificationDto> findNotificationBookmarkByCursor(Long next, Long size) {
+    public List<NotificationDto> findNotificationBookmarkByCursor(Long next, Long size, Member member) {
 
         return jpaQueryFactory.select(new QNotificationDto(
                         notification.id,
@@ -27,13 +29,17 @@ public class NotificationBookmarkQuery {
                         notification.url
                 ))
                 .from(notificationBookmark, notification)
-                .where(notificationBookmark.id.lt(next).and(notificationBookmark.id.eq(notification.id)))
+                .where(
+                        notificationBookmark.id.lt(next)
+                                .and(notificationBookmark.id.eq(notification.id)
+                                        .and(notificationBookmark.member.eq(member))
+                                ))
                 .orderBy(notificationBookmark.id.desc())
                 .limit(size)
                 .fetch();
     }
 
-    public List<NotificationDto> findNotificationBookmarkByCursor(Long size) {
+    public List<NotificationDto> findNotificationBookmarkByCursor(Long size, Member member) {
 
         return jpaQueryFactory.select(new QNotificationDto(
                         notification.id,
@@ -41,7 +47,10 @@ public class NotificationBookmarkQuery {
                         notification.url
                 ))
                 .from(notificationBookmark, notification)
-                .where(notificationBookmark.id.eq(notification.id))
+                .where(
+                        notificationBookmark.id.eq(notification.id)
+                                .and(notificationBookmark.member.eq(member))
+                )
                 .orderBy(notificationBookmark.id.desc())
                 .limit(size)
                 .fetch();

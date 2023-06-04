@@ -1,9 +1,9 @@
-package cbnu.io.cbnuswalrami.business.web.notificationbookmark.presentation;
+package cbnu.io.cbnuswalrami.business.web.communitybookmark.presentation;
 
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.common.Cursor;
 import cbnu.io.cbnuswalrami.business.web.common.CursorResult;
-import cbnu.io.cbnuswalrami.business.web.notificationbookmark.application.service.paging.NotificationBookmarkCursorPagingService;
+import cbnu.io.cbnuswalrami.business.web.communitybookmark.application.service.paging.CommunityBookmarkCursorPagingService;
 import cbnu.io.cbnuswalrami.business.web.util.MemberFindUtil;
 import cbnu.io.cbnuswalrami.common.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,25 +18,25 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/notification-bookmark")
-public class NotificationCursorPagingAPI {
+@RequestMapping("/api/community-bookmark")
+public class CommunityBookmarkCursorPagingAPI {
 
-    private final NotificationBookmarkCursorPagingService notificationBookmarkCursorPagingService;
+    private final CommunityBookmarkCursorPagingService communityBookmarkCursorPagingService;
 
     private final MemberFindUtil memberFindUtil;
 
+
     @GetMapping
-    public ResponseEntity<ApiResponse> findNotificationBookmarkByCursorPaging(
+    public ResponseEntity<ApiResponse> findCommunityBookmarksByCursor(
             @RequestParam @Nullable Long next,
             @RequestParam @Nullable Long size,
             HttpServletRequest request
-            ) {
+    ) {
         Member member = memberFindUtil.findMemberByBearerToken(request);
-        CursorResult cursorResult = notificationBookmarkCursorPagingService.findNotificationBookmarksByCursor(
+        CursorResult cursorResult = communityBookmarkCursorPagingService.findCommunityBookmarkByCursor(
                 Cursor.from(next, size),
                 member
         );
-
         return ResponseEntity
                 .ok()
                 .body(ApiResponse.of(cursorResult));

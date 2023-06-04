@@ -1,10 +1,12 @@
 package cbnu.io.cbnuswalrami.test.integration.favorites.notificationbookmark;
 
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.core.domon.notification.Notification;
 import cbnu.io.cbnuswalrami.business.core.domon.notificationbookmark.entity.NotificationBookmark;
 import cbnu.io.cbnuswalrami.business.web.common.Cursor;
 import cbnu.io.cbnuswalrami.business.web.common.CursorResult;
 import cbnu.io.cbnuswalrami.business.web.notificationbookmark.application.service.paging.NotificationBookmarkCursorPagingService;
+import cbnu.io.cbnuswalrami.business.web.util.MemberFindUtil;
 import cbnu.io.cbnuswalrami.common.configuration.container.DatabaseTestBase;
 import cbnu.io.cbnuswalrami.test.helper.fixture.notification.NotificationFixture;
 import cbnu.io.cbnuswalrami.test.helper.fixture.notificationbookmark.NotificationBookmarkFixture;
@@ -28,28 +30,42 @@ class NotificationBookmarkCursorPagingTest extends DatabaseTestBase {
     @Autowired
     private NotificationBookmarkCursorPagingService notificationBookmarkCursorPagingService;
 
+    @Autowired
+    private MemberFindUtil memberFindUtil;
+
     @DisplayName("15개의 즐겨찾기 공지사항이 있을 때 size를 4개로 했을 때 4개를 반환한다.")
     @Test
     void given_size_4_when_find_then_bookmark_notifications_4() {
         List<Notification> notifications = notificationFixture.save15RandomNotification();
         List<NotificationBookmark> notificationBookmarks = notificationBookmarkFixture.saveNotificationBookmarkByNotifications(notifications);
+        Member member = memberFindUtil.findMemberByAuthentication();
 
-
-        CursorResult cursorResult = notificationBookmarkCursorPagingService.findNotificationBookmarksByCursor(Cursor.from(null, 4L));
+        CursorResult cursorResult = notificationBookmarkCursorPagingService.findNotificationBookmarksByCursor(
+                Cursor.from(null, 4L),
+                member
+        );
         assertThat(cursorResult.getValues()).hasSize(4);
     }
 
     @DisplayName("즐겨찾기의 고지사항이 하나도 없으면 lastIndex값이 0이다.")
     @Test
     void given_empty_notification_bookmark_when_find_then_last_index_should_be_0() {
-        CursorResult cursorResult = notificationBookmarkCursorPagingService.findNotificationBookmarksByCursor(Cursor.from(null, 4L));
+        Member member = memberFindUtil.findMemberByAuthentication();
+        CursorResult cursorResult = notificationBookmarkCursorPagingService.findNotificationBookmarksByCursor(
+                Cursor.from(null, 4L),
+                member
+        );
         assertThat(cursorResult.getLastIndex()).isEqualTo(0L);
     }
 
     @DisplayName("즐겨찾기의 고지사항이 하나도 없으면 values가 빈 배열이다.")
     @Test
     void given_empty_notification_bookmark_when_find_then_values_is_empty_array() {
-        CursorResult cursorResult = notificationBookmarkCursorPagingService.findNotificationBookmarksByCursor(Cursor.from(null, 4L));
+        Member member = memberFindUtil.findMemberByAuthentication();
+        CursorResult cursorResult = notificationBookmarkCursorPagingService.findNotificationBookmarksByCursor(
+                Cursor.from(null, 4L),
+                member
+        );
         assertThat(cursorResult.getValues()).isEmpty();
     }
 }

@@ -246,3 +246,13 @@ include::{snippets}/post-community-favorite/http-request.adoc[]
 ==== http response
 include::{snippets}/post-community-favorite/http-response.adoc[]
 include::{snippets}/post-community-favorite/response-fields.adoc[]
+
+
+=== 게시글 즐겨찾게 커서 페이징(최신순) 조회
+==== http request
+include::{snippets}/get-favorite-communities-by-cursor/http-request.adoc[]
+include::{snippets}/get-favorite-communities-by-cursor/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/get-favorite-communities-by-cursor/response-body.adoc[]
+include::{snippets}/get-favorite-communities-by-cursor/response-fields.adoc[]

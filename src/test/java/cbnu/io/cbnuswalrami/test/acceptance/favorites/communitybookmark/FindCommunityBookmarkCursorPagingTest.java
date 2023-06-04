@@ -1,10 +1,10 @@
-package cbnu.io.cbnuswalrami.test.acceptance.favorites.notificationbookmark;
+package cbnu.io.cbnuswalrami.test.acceptance.favorites.communitybookmark;
 
-import cbnu.io.cbnuswalrami.business.core.domon.notification.Notification;
+import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
 import cbnu.io.cbnuswalrami.common.configuration.container.AcceptanceTestBase;
 import cbnu.io.cbnuswalrami.common.configuration.security.TokenProvider;
-import cbnu.io.cbnuswalrami.test.helper.fixture.notification.NotificationFixture;
-import cbnu.io.cbnuswalrami.test.helper.fixture.notificationbookmark.NotificationBookmarkFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.community.CommunityFixture;
+import cbnu.io.cbnuswalrami.test.helper.fixture.communitybookmark.CommunityBookmarkFixture;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,40 +25,41 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
-@DisplayName("공지사항 즐겨찾기 커서 페이징 인수테스트")
-class FindNotificationBookmarkCursorPagingTest extends AcceptanceTestBase {
+@DisplayName("즐겨찾기한 커뮤니티 커서 페이징 인수테스트")
+class FindCommunityBookmarkCursorPagingTest extends AcceptanceTestBase {
 
     @Autowired
-    private NotificationFixture notificationFixture;
+    private CommunityFixture communityFixture;
 
     @Autowired
-    private NotificationBookmarkFixture notificationBookmarkFixture;
+    private CommunityBookmarkFixture communityBookmarkFixture;
 
     @Autowired
     private TokenProvider tokenProvider;
 
-
-    @DisplayName("공지사항이 15개 있을 때 4개를 조회하면 4개의 공지사항 리스트를 반환한다.")
+    @DisplayName("커뮤니티 게시글을 즐겨찾기한 후 커서 페이징 조회를한다.")
     @Test
-    void given_15_notification_when_find_by_cursor_then_status_ok() {
+    void given_favorites_community_when_find_by_cursor_then_return_ok() {
+        // given
+        List<ResponseCommunity> responseCommunities = communityFixture.write15Community();
+        communityBookmarkFixture.saveCommunitiesToBookmark(responseCommunities);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String token = tokenProvider.createToken(authentication);
-        List<Notification> notifications = notificationFixture.save15RandomNotification();
-        notificationBookmarkFixture.saveNotificationBookmarkByNotifications(notifications);
 
         given(documentationSpec)
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
-                .param("next", 6L)
+                .param("next", 11L)
                 .param("size", 4L)
                 .header("Authorization", "Bearer " + token)
                 .filter(document(
-                        "get-notification-favorite",
+                        "get-favorite-communities-by-cursor",
                         getRequestParametersSnippet(),
                         getResponseFieldsSnippet()
                 ))
                 .when()
-                .get("/api/notification-bookmark")
+                .get("/api/community-bookmark")
                 .then()
                 .statusCode(HttpStatus.OK.value());
     }
@@ -77,9 +78,12 @@ class FindNotificationBookmarkCursorPagingTest extends AcceptanceTestBase {
                 fieldWithPath("code").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                 fieldWithPath("data.hasNext").type(JsonFieldType.BOOLEAN).description("다음 요청할 수 있는 멤버가 있는지"),
                 fieldWithPath("data.lastIndex").type(JsonFieldType.NUMBER).description("요청한 멤버의 마지막 index번호(해당 번호를 next값으로 쓰면 된다)"),
-                fieldWithPath("data.values[].id").type(JsonFieldType.NUMBER).description("공지사항 게시물 id"),
-                fieldWithPath("data.values[].title").type(JsonFieldType.STRING).description("공지사항 게시물 제목"),
-                fieldWithPath("data.values[].url").type(JsonFieldType.STRING).description("공지사항 게시물 url")
+                fieldWithPath("data.values[].id").type(JsonFieldType.NUMBER).description("즐겨찾기 게시물 게시물 id"),
+                fieldWithPath("data.values[].title").type(JsonFieldType.STRING).description("즐겨찾기 게시물 게시물 제목"),
+                fieldWithPath("data.values[].description").type(JsonFieldType.STRING).description("즐겨찾기 게시물"),
+                fieldWithPath("data.values[].url").type(JsonFieldType.STRING).description("즐겨찾기 게시물 게시물 url"),
+                fieldWithPath("data.values[].createdAt").type(JsonFieldType.STRING).description("즐겨찾기 게시물 게시물 생성일자"),
+                fieldWithPath("data.values[].count").type(JsonFieldType.NUMBER).description("즐겨찾기 게시물 조회수")
         );
     }
 }
