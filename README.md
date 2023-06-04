@@ -146,6 +146,18 @@ erDiagram
     }
 ```
 
+COMMUNITY_COUNT 테이블을 COMMUNITY 테이블과 분리함으로써 향상되는 무결성은 주로 "참조 무결성(Referential Integrity)"과 "도메인 무결성(Domain Integrity)"입니다. 이것들은 어떻게 작용하는지 살펴봅시다:
+
+참조 무결성(Referential Integrity): COMMUNITY_COUNT 테이블에서 community_id 필드를 외래키(Foreign Key)로 설정함으로써, COMMUNITY 테이블에 존재하지 않는 커뮤니티의 조회수를 등록하는 것을 방지할 수 있습니다. 이는 두 테이블 사이의 일관성을 유지하고, 데이터 무결성을 보장하는 역할을 합니다.
+
+도메인 무결성(Domain Integrity): COMMUNITY_COUNT 테이블에서 조회수(count) 필드의 데이터 유형과 값의 범위를 정확하게 지정함으로써, 이 필드에 유효하지 않은 값(예: 음수의 조회수)이 입력되는 것을 방지할 수 있습니다. 이는 데이터의 유효성과 일관성을 보장하는 역할을 합니다.
+
+또한, 이렇게 COMMUNITY_COUNT 테이블을 별도로 분리하면 "엔티티 무결성(Entity Integrity)"도 유지하는데 도움이 될 수 있습니다. 예를 들어, COMMUNITY 테이블에서 커뮤니티 정보가 변경되더라도 COMMUNITY_COUNT 테이블의 데이터는 영향을 받지 않으므로, COMMUNITY_COUNT 테이블의 기본 키(Primary Key)가 고유하게 유지됩니다.
+
+하지만, 위의 무결성을 유지하기 위해서는 적절한 데이터베이스 관리 및 데이터 입력, 수정, 삭제에 대한 로직이 필요하며, 이는 애플리케이션 측에서 충분히 고려되어야 합니다.
+
+<br/>
+
 ## 개발 방법
 ![image](https://github.com/android-project-04/cbnu-sw-alrami/assets/87268026/da33a242-91c2-40ca-81d5-3668d927cfdc)
 - 인수테스트 주도 개발을 하며 개발 이전에 기능에 대한 기획에 집중할 수 있는 시간을 갖게 됩니다.
