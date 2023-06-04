@@ -4,6 +4,7 @@ import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.community.application.service.CommunityWriteService;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.request.RequestCommunity;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
+import cbnu.io.cbnuswalrami.business.web.util.MemberFindUtil;
 import cbnu.io.cbnuswalrami.test.helper.fixture.file.FileFixture;
 import cbnu.io.cbnuswalrami.test.helper.fixture.member.SignupFixture;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,11 @@ public class CommunityFixture {
     @Autowired
     private SignupFixture signupFixture;
 
+    @Autowired
+    private MemberFindUtil memberFindUtil;
+
     public List<ResponseCommunity> write15Community() {
-        Member member = signupFixture.signupMember(
-                "ADKLa1234",
-                "Abcd1234@!",
-                "한글닉네임"
-        );
+        Member member = memberFindUtil.findMemberByAuthentication();
 
         MultipartFile file = FileFixture.createFile();
 
@@ -46,11 +46,7 @@ public class CommunityFixture {
     }
 
     public List<ResponseCommunity> write15EmploymentCommunity() {
-        Member member = signupFixture.signupMember(
-                "ADKLa1234",
-                "Abcd1234@!",
-                "한글닉네임"
-        );
+        Member member = memberFindUtil.findMemberByAuthentication();
 
         MultipartFile file = FileFixture.createFile();
 
