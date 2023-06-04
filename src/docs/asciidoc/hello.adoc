@@ -236,3 +236,13 @@ include::{snippets}/delete-favorite-notification/http-request.adoc[]
 ==== http response
 include::{snippets}/delete-favorite-notification/http-response.adoc[]
 include::{snippets}/delete-favorite-notification/response-fields.adoc[]
+
+
+=== 게시글 즐겨찾기에 저장
+==== http request
+/api/community-bookmark/{저장할 게시글 id}
+include::{snippets}/post-community-favorite/http-request.adoc[]
+
+==== http response
+include::{snippets}/post-community-favorite/http-response.adoc[]
+include::{snippets}/post-community-favorite/response-fields.adoc[]
