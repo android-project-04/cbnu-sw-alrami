@@ -2,6 +2,7 @@ package cbnu.io.cbnuswalrami.test.acceptance.favorites.notificationbookmark;
 
 import cbnu.io.cbnuswalrami.business.core.domon.notification.Notification;
 import cbnu.io.cbnuswalrami.common.configuration.container.AcceptanceTestBase;
+import cbnu.io.cbnuswalrami.common.configuration.security.TokenProvider;
 import cbnu.io.cbnuswalrami.test.helper.fixture.notification.NotificationFixture;
 import cbnu.io.cbnuswalrami.test.helper.fixture.notificationbookmark.NotificationBookmarkFixture;
 import io.restassured.http.ContentType;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.RequestParametersSnippet;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
@@ -31,10 +34,15 @@ class FindNotificationBookmarkCursorPagingTest extends AcceptanceTestBase {
     @Autowired
     private NotificationBookmarkFixture notificationBookmarkFixture;
 
+    @Autowired
+    private TokenProvider tokenProvider;
+
 
     @DisplayName("공지사항이 15개 있을 때 4개를 조회하면 4개의 공지사항 리스트를 반환한다.")
     @Test
     void given_15_notification_when_find_by_cursor_then_status_ok() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String token = tokenProvider.createToken(authentication);
         List<Notification> notifications = notificationFixture.save15RandomNotification();
         notificationBookmarkFixture.saveNotificationBookmarkByNotifications(notifications);
 
@@ -43,6 +51,7 @@ class FindNotificationBookmarkCursorPagingTest extends AcceptanceTestBase {
                 .contentType(ContentType.JSON)
                 .param("next", 6L)
                 .param("size", 4L)
+                .header("Authorization", "Bearer " + token)
                 .filter(document(
                         "get-notification-favorite",
                         getRequestParametersSnippet(),
