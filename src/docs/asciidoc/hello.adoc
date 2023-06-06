@@ -267,3 +267,13 @@ include::{snippets}/get-favorite-community-by-id/http-request.adoc[]
 ==== http response
 include::{snippets}/get-favorite-community-by-id/http-response.adoc[]
 include::{snippets}/get-favorite-community-by-id/response-fields.adoc[]
+
+
+=== 즐겨찾기 게시물 삭제
+==== http request
+/api/community-bookmark/{삭제할 북마크 id}
+include::{snippets}/delete-favorite-bookmark/http-request.adoc[]
+
+==== http response
+include::{snippets}/delete-favorite-bookmark/http-response.adoc[]
+include::{snippets}/delete-favorite-bookmark/response-fields.adoc[]
