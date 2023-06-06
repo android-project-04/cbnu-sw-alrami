@@ -1,6 +1,6 @@
 package cbnu.io.cbnuswalrami.business.core.domon.communitybookmark.infrastructure.query;
 
-import cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted;
+import cbnu.io.cbnuswalrami.business.core.domon.communitybookmark.entity.CommunityBookmark;
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.QResponseCommunity;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
@@ -31,7 +31,6 @@ public class CommunityBookmarkQuery {
             Long size,
             Member member
     ) {
-        System.out.println("CommunityBookmarkQuery.findResponseCommunitiesByCursor");
         return queryFactory.select(new QResponseCommunityBookmark(
                         communityBookmark.id,
                         communityBookmark.community.title.title,
@@ -105,5 +104,17 @@ public class CommunityBookmarkQuery {
                 ).fetchOne();
 
         return Optional.ofNullable(responseCommunity);
+    }
+
+    public Optional<CommunityBookmark> findCommunityBookmarkByBookmarkId(Long id) {
+        CommunityBookmark response = queryFactory.select(communityBookmark)
+                .from(communityBookmark, community)
+                .where(
+                        communityBookmark.id.eq(id)
+                                .and(communityBookmark.community.id.eq(community.id))
+                                .and(community.isDeleted.eq(FALSE))
+                ).fetchOne();
+
+        return Optional.ofNullable(response);
     }
 }
