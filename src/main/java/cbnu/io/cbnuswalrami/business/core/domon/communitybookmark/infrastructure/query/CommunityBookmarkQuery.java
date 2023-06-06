@@ -1,5 +1,6 @@
 package cbnu.io.cbnuswalrami.business.core.domon.communitybookmark.infrastructure.query;
 
+import cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted;
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.QResponseCommunity;
 import cbnu.io.cbnuswalrami.business.web.community.presentation.response.ResponseCommunity;
@@ -9,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static cbnu.io.cbnuswalrami.business.core.domon.common.deleted.Deleted.*;
 import static cbnu.io.cbnuswalrami.business.core.domon.communitybookmark.entity.QCommunityBookmark.*;
@@ -84,5 +86,24 @@ public class CommunityBookmarkQuery {
                                         .and(community.isDeleted.eq(FALSE))
                                 )).fetch();
         return fetch.size() > 0;
+    }
+
+    public Optional<ResponseCommunity> findResponseCommunityByBookmarkId(Long id) {
+        ResponseCommunity responseCommunity = queryFactory.select(new QResponseCommunity(
+                        communityBookmark.community.id,
+                        communityBookmark.community.title.title,
+                        communityBookmark.community.description.description,
+                        communityBookmark.community.url,
+                        communityBookmark.community.createdAt,
+                        communityCount.count
+                )).from(communityBookmark, community, communityCount)
+                .where(
+                        communityBookmark.id.eq(id)
+                                .and(communityBookmark.community.id.eq(community.id))
+                                .and(community.id.eq(communityCount.community.id))
+                                .and(community.isDeleted.eq(FALSE))
+                ).fetchOne();
+
+        return Optional.ofNullable(responseCommunity);
     }
 }
