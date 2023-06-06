@@ -32,4 +32,9 @@ public class CommunityBookmarkFixture {
 
         return responseCommunities;
     }
+
+    public ResponseCommunity saveCommunityToBookmark(ResponseCommunity community) {
+        Member member = memberFindUtil.findMemberByAuthentication();
+        return saveCommunityBookmarkService.saveCommunityBookmark(member, RequestId.from(community.getId()));
+    }
 }

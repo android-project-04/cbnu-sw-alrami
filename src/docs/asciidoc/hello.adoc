@@ -256,3 +256,14 @@ include::{snippets}/get-favorite-communities-by-cursor/request-parameters.adoc[]
 ==== http response
 include::{snippets}/get-favorite-communities-by-cursor/response-body.adoc[]
 include::{snippets}/get-favorite-communities-by-cursor/response-fields.adoc[]
+
+
+=== 즐겨찾기 id값으로 게시물 조회
+==== http request
+
+/api/community-bookmark/{bookmark id값}
+include::{snippets}/get-favorite-community-by-id/http-request.adoc[]
+
+==== http response
+include::{snippets}/get-favorite-community-by-id/http-response.adoc[]
+include::{snippets}/get-favorite-community-by-id/response-fields.adoc[]
