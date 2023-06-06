@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
-import static io.restassured.RestAssured.authentication;
 import static io.restassured.RestAssured.given;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
