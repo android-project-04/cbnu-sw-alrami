@@ -74,4 +74,13 @@ public class CommunityFixture {
         }
         return responseCommunities;
     }
+
+    public ResponseCommunity writeOneCommunity() {
+        Member member = memberFindUtil.findMemberByAuthentication();
+
+        MultipartFile file = FileFixture.createFile();
+        RequestCommunity requestCommunity = new RequestCommunity("title123", "desc123");
+
+        return communityWriteService.writeCommunity(requestCommunity, file, member, COMMUNITY);
+    }
 }
