@@ -194,6 +194,7 @@ include::{snippets}/old-community-paging-get/response-fields.adoc[]
 === 취업정보 커뮤니티 글 등록
 ==== http request
 include::{snippets}/employment-community-post/curl-request.adoc[]
+include::{snippets}/employment-community-post/request-parts.adoc[]
 include::{snippets}/employment-community-post/request-part-requestCommunity-fields.adoc[]
 
 ==== http response
