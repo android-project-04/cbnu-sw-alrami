@@ -43,41 +43,6 @@ http 헤더에 담아서 드립니다.
 include::{snippets}/login/http-response.adoc[]
 include::{snippets}/login/response-headers.adoc[]
 
-[[resources-change-approval]]
-=== 회원 승인
-==== http request
-ADMIN 권한으로 신청 가능
-
-/api/admin/approval/{변경할 유저 아이디값}
-include::{snippets}/change-approval/http-request.adoc[]
-
-==== http response
-include::{snippets}/change-approval/response-fields.adoc[]
-
-[[resources-NoApprovalMembers]]
-=== 비승인 회원 조회
-==== http request
-ADMIN 권한으로 신청 가능
-
-include::{snippets}/NoApprovalMembers/http-request.adoc[]
-include::{snippets}/NoApprovalMembers/request-parameters.adoc[]
-
-==== http response
-include::{snippets}/NoApprovalMembers/response-body.adoc[]
-include::{snippets}/NoApprovalMembers/response-fields.adoc[]
-
-
-=== 유저 30일 정지
-ADMIN 권한으로 사용 가능
-
-/api/admin/stop-member/{정지할 유저 id번호}
-
-==== http request
-include::{snippets}/post-stop-member/http-request.adoc[]
-
-==== http response
-include::{snippets}/post-stop-member/http-response.adoc[]
-include::{snippets}/post-stop-member/response-fields.adoc[]
 
 === 멤버 본인 닉네임 변경
 파라미터로 주시면 됩니다.
@@ -101,6 +66,53 @@ include::{snippets}/get-mypage/http-request.adoc[]
 include::{snippets}/get-mypage/http-response.adoc[]
 include::{snippets}/get-mypage/response-fields.adoc[]
 
+
+== Admin
+=== 게시물 삭제
+==== http request
+/api/admin/community/{삭제할 게시글 id}
+include::{snippets}/delete-community-by-admin/http-request.adoc[]
+
+==== http response
+include::{snippets}/delete-community-by-admin/response-body.adoc[]
+include::{snippets}/delete-community-by-admin/response-fields.adoc[]
+
+
+=== 유저 30일 정지
+ADMIN 권한으로 사용 가능
+
+/api/admin/stop-member/{정지할 유저 id번호}
+
+==== http request
+include::{snippets}/post-stop-member/http-request.adoc[]
+
+==== http response
+include::{snippets}/post-stop-member/http-response.adoc[]
+include::{snippets}/post-stop-member/response-fields.adoc[]
+
+
+[[resources-change-approval]]
+=== 회원 승인
+==== http request
+ADMIN 권한으로 신청 가능
+
+/api/admin/approval/{변경할 유저 아이디값}
+include::{snippets}/change-approval/http-request.adoc[]
+
+==== http response
+include::{snippets}/change-approval/response-fields.adoc[]
+
+[[resources-NoApprovalMembers]]
+=== 비승인 회원 조회
+==== http request
+ADMIN 권한으로 신청 가능
+
+include::{snippets}/NoApprovalMembers/http-request.adoc[]
+include::{snippets}/NoApprovalMembers/request-parameters.adoc[]
+
+==== http response
+include::{snippets}/NoApprovalMembers/response-body.adoc[]
+include::{snippets}/NoApprovalMembers/response-fields.adoc[]
 
 
 == Notification
