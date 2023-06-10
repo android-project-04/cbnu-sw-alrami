@@ -1,6 +1,7 @@
 package cbnu.io.cbnuswalrami.test.helper.fixture.member;
 
 import cbnu.io.cbnuswalrami.business.core.domon.member.entity.Member;
+import cbnu.io.cbnuswalrami.business.core.domon.member.entity.values.*;
 import cbnu.io.cbnuswalrami.business.core.domon.member.infrastructure.command.MemberJpaRepository;
 import cbnu.io.cbnuswalrami.business.web.member.application.ApprovalChangeCommand;
 import cbnu.io.cbnuswalrami.business.web.member.application.SignupCommand;
@@ -47,6 +48,12 @@ public class SignupFixture {
         Member signupMember = signupCommand.signup(signupRequest, multipartFile);
         approvalChangeCommand.changeApproval(signupMember.getId());
         return signupMember;
+    }
+
+    public Member signupAdmin() {
+        Member member = MemberFixture.createAdminMember();
+        Member savedMember = memberJpaRepository.save(member);
+        return savedMember;
     }
 
     public Member signupMember(Member member) {
