@@ -29,9 +29,8 @@ public class SaveCommunityBookmarkService {
             RequestId communityId
     ) {
         Community community = communityJpaRepository.findById(communityId.getId())
-                .filter(x -> x.getMember().getId().equals(member.getId()))
                 .filter(x -> x.getIsDeleted().equals(Deleted.FALSE))
-                .orElseThrow(() -> new IllegalArgumentException("해당 id의 커뮤니티 게시글이 존재하지 않거나 게시글 작성자가 아닙니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 id의 커뮤니티 게시글이 존재하지 않습니다."));
 
         CommunityCount communityCount = communityCountJpaRepository.findByCommunity(community)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시물의 조회수가 없습니다."));
