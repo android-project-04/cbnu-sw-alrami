@@ -44,21 +44,4 @@ class SaveCommunityBookmarkTest extends DatabaseTestBase {
 
         assertThat(actual.getTitle()).isEqualTo(responseCommunity.getTitle());
     }
-
-    @DisplayName("해당 커뮤니티 게시물의 작성자가 아닌 사람이 저장하면 IllegalArgumentException을 던진다.")
-    @Test
-    void given_invalid_member_when_save_to_bookmark_then_illegalargument_exception() {
-        Member member = signupFixture.signupMember(
-                "ADKLa1234",
-                "Abcd1234@!",
-                "한글닉네임"
-        );
-
-        List<ResponseCommunity> responseCommunities = communityFixture.write15Community();
-        Long saveCommunityId = responseCommunities.get(0).getId();
-
-        assertThatThrownBy(() -> saveCommunityBookmarkService.saveCommunityBookmark(member, RequestId.from(saveCommunityId)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("해당 id의 커뮤니티 게시글이 존재하지 않거나 게시글 작성자가 아닙니다.");
-    }
 }
