@@ -5,13 +5,13 @@
 
 
 문서 -> 
-http://ec2-3-39-25-103.ap-northeast-2.compute.amazonaws.com/docs/hello.html
+http://cbnu-cat-mom.koreacentral.cloudapp.azure.com/docs/index.html
 
 도메인 주소 -> 
-http://ec2-3-39-25-103.ap-northeast-2.compute.amazonaws.com
+http://cbnu-cat-mom.koreacentral.cloudapp.azure.com
 
 테스트 커버리지 -> 
-http://ec2-3-39-25-103.ap-northeast-2.compute.amazonaws.com/docs/index.html
+http://cbnu-cat-mom.koreacentral.cloudapp.azure.com/docs/index.html
 
 <br/>
 
