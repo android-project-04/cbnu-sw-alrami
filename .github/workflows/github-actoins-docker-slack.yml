@@ -92,7 +92,7 @@ jobs:
           docker pull ${{ secrets.DOCKER_HUB_REPO }}:${GITHUB_SHA::7}
           docker tag ${{ secrets.DOCKER_HUB_REPO }}:${GITHUB_SHA::7} ${{ secrets.PROJECT_NAME }}
           docker rm -f ${{ secrets.PROJECT_NAME }}
-          docker run -d --name ${{ secrets.PROJECT_NAME }} -p --net azureuser_our_net 80:8080 ${{ secrets.PROJECT_NAME }}:latest
+          docker run -d --name ${{ secrets.PROJECT_NAME }} -p 80:8080 --net azureuser_our_net  ${{ secrets.PROJECT_NAME }}:latest
 
     - name: action-slack
       uses: 8398a7/action-slack@v3
