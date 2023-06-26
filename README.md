@@ -5,7 +5,7 @@
 
 
 문서 -> 
-http://cbnu-cat-mom.koreacentral.cloudapp.azure.com/docs/index.html
+http://cbnu-cat-mom.koreacentral.cloudapp.azure.com/docs/hello.html
 
 도메인 주소 -> 
 http://cbnu-cat-mom.koreacentral.cloudapp.azure.com
