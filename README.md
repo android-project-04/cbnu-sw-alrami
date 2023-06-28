@@ -26,7 +26,7 @@ http://cbnu-cat-mom.koreacentral.cloudapp.azure.com/docs/index.html
 
 <br/>
 
-``` mermaid
+```mermaid
 mindmap
   root(cbnu sw alrami)
     커뮤니티
@@ -76,7 +76,7 @@ mindmap
 
 ## ERD
 
-``` mermaid
+```mermaid
 erDiagram
     MEMBER ||--|| STOP_MEMBER : make
     MEMBER ||--o{ NOTIFICATION_BOOKMARK : make
