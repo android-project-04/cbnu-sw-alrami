@@ -4,17 +4,6 @@
 <br/>
 
 
-문서 -> 
-http://cbnu-cat-mom.koreacentral.cloudapp.azure.com/docs/hello.html
-
-도메인 주소 -> 
-http://cbnu-cat-mom.koreacentral.cloudapp.azure.com
-
-테스트 커버리지 -> 
-http://cbnu-cat-mom.koreacentral.cloudapp.azure.com/docs/index.html
-
-<br/>
-
 
 ## 사용 기술
 - Cloud: AWS EC2, RDS
